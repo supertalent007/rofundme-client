@@ -7,6 +7,8 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { jwtDecode } from 'jwt-decode';
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
 const MEDIA_API = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -14,8 +16,21 @@ const MEDIA_API = process.env.NEXT_PUBLIC_SERVER_URL;
 export default function Custom404() {
     const router = useRouter();
     const [project, setProject] = useState({});
-    const [activeTab, setActiveTab] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 767);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         axios
@@ -37,11 +52,11 @@ export default function Custom404() {
                         <h2>{project?.title}</h2>
 
                         <div className="row">
-                            <div className="col-8">
+                            <div className={isMobile ? 'col-md-12' : 'col-8'}>
                                 <img src={project?.image} alt="" style={{ borderRadius: '5px' }} />
                             </div>
 
-                            <div className="col-4">
+                            <div className={isMobile ? 'col-md-12' : 'col-4'}>
                                 <div className="info-section">
                                     <div className="header-line" />
                                     <div className="view-col">
@@ -73,13 +88,16 @@ export default function Custom404() {
                                         <li><Link href="#" className="icon-youtube" /></li>
                                     </ul>
                                 </div>
-                                <button className="tf-button w-full" onClick={e => setIsModalOpen(true)}>
+                                <button className="tf-button force-w-full" onClick={e => setIsModalOpen(true)}>
                                     PICK YOUR PERK
                                 </button>
                             </div>
                         </div>
+                        <div className="mt-5">
+                            <HtmlRenderer htmlContent={project?.description} />
 
-                        <HtmlRenderer htmlContent={project?.description} />
+                        </div>
+
 
                         {isModalOpen ?
                             <RewardModal
@@ -101,7 +119,7 @@ export default function Custom404() {
                                 <Campaign project={project} HtmlRenderer={HtmlRenderer} />
                             </TabPanel>
                             <TabPanel>
-                                <Rewards project={project} />
+                                <Rewards project={project} isMobile={isMobile} />
                             </TabPanel>
                         </Tabs>
                     </div>
@@ -123,6 +141,71 @@ function HtmlRenderer({ htmlContent }) {
 }
 
 function RewardModal({ closeModal, project }) {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [amount, setAmount] = useState(10);
+
+    const handleSubmit = async (reward) => {
+        if (!stripe || !elements) {
+            return;
+        }
+
+        try {
+            const res = await axios.post(`${BACKEND_API}/create-payment-intent`, {
+                amount: reward?.amount * 100,
+                product: reward?.title,
+                rewardId: reward?._id,
+                projectId: project?._id,
+                userId: jwtDecode(localStorage.getItem('token')).id
+            }, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const checkoutUrl = res.data.url;
+            if (checkoutUrl) {
+                window.location.href = checkoutUrl;
+            }
+        } catch (error) {
+            console.error('Payment failed:', error);
+        }
+    };
+
+    const handlePayment = async () => {
+        if (!stripe || !elements) {
+            return;
+        }
+
+        const targetAmount = amount;
+
+        const closestReward = project?.rewards
+            ?.filter(r => r.amount <= targetAmount)
+            ?.reduce((prev, curr) =>
+                (targetAmount - curr.amount < targetAmount - prev.amount ? curr : prev), { amount: 0 });
+
+        try {
+            if (closestReward) {
+                const res = await axios.post(`${BACKEND_API}/create-payment-intent`, {
+                    amount: closestReward.amount * 100,
+                    product: closestReward.title,
+                    rewardId: closestReward._id,
+                    projectId: project?._id,
+                    userId: jwtDecode(localStorage.getItem('token')).id
+                }, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const checkoutUrl = res.data.url;
+                if (checkoutUrl) {
+                    window.location.href = checkoutUrl;
+                }
+            } else {
+                console.error('No suitable reward found.');
+            }
+        } catch (error) {
+            console.error('Payment failed:', error);
+        }
+    }
+
     return (
         <div className="reward-modal">
             <div className="modal-content">
@@ -140,10 +223,12 @@ function RewardModal({ closeModal, project }) {
                         <input
                             type="number"
                             className="no-spinner mr-10 input-with-currency"
+                            value={amount}
+                            onChange={e => setAmount(e.target.value)}
                             required
                         />
                         <span className="currency-suffix">USD</span>
-                        <button className="tf-button">CONTINUE</button>
+                        <button className="tf-button" onClick={handlePayment}>CONTINUE</button>
                     </div>
                 </div>
                 <div className="mt-5">
@@ -159,7 +244,7 @@ function RewardModal({ closeModal, project }) {
                                         {reward?.description}
                                     </div>
 
-                                    <button className="tf-button w-full mt-5">
+                                    <button className="tf-button force-w-full mt-5" onClick={e => handleSubmit(reward)}>
                                         GET THIS PERK
                                     </button>
                                 </div>

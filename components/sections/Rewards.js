@@ -3,7 +3,7 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
 
-export default function Rewards({ project }) {
+export default function Rewards({ project, isMobile }) {
     return (
         <div className="tf-section action">
             <div className="themesflat-container">
@@ -11,7 +11,7 @@ export default function Rewards({ project }) {
                     <div className="col-md-12">
                         {project?.rewards?.length &&
                             project.rewards.map((reward, index) => (
-                                <RewardCard reward={reward} project={project} key={`reward-${index}`} />
+                                <RewardCard reward={reward} project={project} key={`reward-${index}`} isMobile={isMobile} />
                             ))}
                     </div>
                 </div>
@@ -20,7 +20,7 @@ export default function Rewards({ project }) {
     );
 }
 
-function RewardCard({ reward, project }) {
+function RewardCard({ reward, project, isMobile }) {
     const MEDIA_URL = process.env.NEXT_PUBLIC_SERVER_URL;
     const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
     const stripe = useStripe();
@@ -67,7 +67,7 @@ function RewardCard({ reward, project }) {
 
     return (
         <div className="flex row">
-            <div className="col-5">
+            <div className={isMobile ? 'col-12' : 'col-5'}>
                 <div className="flex-col gap30 mt-4 mb-4 reward-card">
                     <img src={`${MEDIA_URL}/${reward?.filePath}`} alt="media" />
                     <div className="p20">
@@ -86,13 +86,13 @@ function RewardCard({ reward, project }) {
                             </div>
                         </div>
 
-                        <button className="mt-5 tf-button w-full" onClick={handleSubmit}>
-                            Pledge
+                        <button className="mt-5 tf-button force-w-full" onClick={handleSubmit}>
+                            GET THIS PERK
                         </button>
                     </div>
                 </div>
             </div>
-            <div className="mt-4 mb-4 flex-col flex p20 col-7">
+            <div className={"mt-4 mb-4 flex-col flex p20 " + isMobile ? "col-12" : "col-7"}>
                 <div className="flex align-center" style={{ fontSize: '15px', lineHeight: '20px' }}>
                     {reward?.description}
                 </div>

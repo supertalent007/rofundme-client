@@ -6446,3 +6446,7 @@ fieldset.password>i::before {
     right: 140px;
     font-size: 15px;
 }
+
+.force-w-full {
+    width: 100% !important;
+}
