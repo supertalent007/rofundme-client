@@ -67,7 +67,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-01.jpg" alt="Image" />
@@ -79,8 +79,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -98,7 +98,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-02.jpg" alt="Image" />
@@ -110,8 +110,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -129,7 +129,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-03.jpg" alt="Image" />
@@ -141,8 +141,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -160,7 +160,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-04.jpg" alt="Image" />
@@ -172,8 +172,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -191,7 +191,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-05.jpg" alt="Image" />
@@ -203,8 +203,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -222,7 +222,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-06.jpg" alt="Image" />
@@ -234,8 +234,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -253,7 +253,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-07.jpg" alt="Image" />
@@ -265,8 +265,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -284,7 +284,7 @@ export default function FeaturedSlider1() {
                                     <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
                                 </div>
                             </div>
-                            <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
+                            <h5 className="name"><Link href="#">Fight Legends: Combat Showdown</Link></h5>
                             <div className="author flex items-center">
                                 <div className="avatar">
                                     <img src="/assets/images/avatar/avatar-box-04.jpg" alt="Image" />
@@ -296,8 +296,8 @@ export default function FeaturedSlider1() {
                             </div>
                             <div className="divider" />
                             <div className="meta-info flex items-center justify-between">
-                                <span className="text-bid">Current Bid</span>
-                                <h6 className="price gem"><i className="icon-gem" />0,34</h6>
+                                <span className="text-bid">Goal</span>
+                                <h6 className="price gem"><i className="icon-gem" />1500</h6>
                             </div>
                         </div>
                     </SwiperSlide>

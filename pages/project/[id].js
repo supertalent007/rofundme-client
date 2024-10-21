@@ -9,14 +9,16 @@ import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { jwtDecode } from 'jwt-decode';
+import { formatDistanceToNowStrict, addDays } from 'date-fns';
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
 const MEDIA_API = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function Custom404() {
     const router = useRouter();
-    const [project, setProject] = useState({});
+    const [project, setProject] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [numberOfBackers, setNumberOfBackers] = useState(0);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 
@@ -38,10 +40,32 @@ export default function Custom404() {
             .then(res => {
                 setProject(res.data[0]);
             })
+
+        if (router.query.id) {
+            axios
+                .get(`${BACKEND_API}/projects/get_number_of_backers_for_project/${router.query.id}`)
+                .then(res => {
+                    setNumberOfBackers(res.data.numberOfBackers);
+                })
+        }
     }, [router.query.id]);
 
     const closeModal = () => {
         setIsModalOpen(false);
+    };
+
+    const calculateDaysLeft = () => {
+        if (!project?.createdAt || !project?.duration) {
+            return null;
+        }
+
+        const createdAtDate = new Date(project.createdAt);
+
+        const projectEndDate = addDays(createdAtDate, project.duration);
+
+        const daysLeft = formatDistanceToNowStrict(projectEndDate, { unit: 'day' });
+
+        return daysLeft;
     };
 
     return (
@@ -60,12 +84,11 @@ export default function Custom404() {
                                 <div className="info-section">
                                     <div className="header-line" />
                                     <div className="view-col">
-                                        {/* <span>{project?.totalNumberOfBackers}</span> */}
-                                        <span>210</span>
+                                        <span>{numberOfBackers}</span>
                                         <span>backers</span>
                                     </div>
                                     <div className="view-col">
-                                        <span>{project?.duration}</span>
+                                        <span>{calculateDaysLeft()}</span>
                                         <span>days to go</span>
                                     </div>
                                     <div className="view-col">
@@ -185,7 +208,7 @@ function RewardModal({ closeModal, project }) {
         try {
             if (closestReward) {
                 const res = await axios.post(`${BACKEND_API}/create-payment-intent`, {
-                    amount: closestReward.amount * 100,
+                    amount: amount * 100,
                     product: closestReward.title,
                     rewardId: closestReward._id,
                     projectId: project?._id,

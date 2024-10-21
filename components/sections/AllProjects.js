@@ -56,6 +56,7 @@ export default function AllProjects({ activeIndex }) {
     const [totalNumberOfPages, setTotalNumberOfPages] = useState(1);
     const [totalNumberOfProjects, setTotalNumberOfProjects] = useState(0);
     const [sortBy, setSortBy] = useState('recent');
+    const [category, setCategory] = useState('All');
 
     useEffect(() => {
         axios
@@ -79,19 +80,27 @@ export default function AllProjects({ activeIndex }) {
 
     useEffect(() => {
         axios
-            .get(`${BACKEND_API}/projects?projectsPerPage=${projectsPerPage}&currentPage=${currentPage}&sortBy=${sortBy}`)
+            .get(`${BACKEND_API}/projects?projectsPerPage=${projectsPerPage}&currentPage=${currentPage}&sortBy=${sortBy}&category=${category}`)
             .then(res => {
                 setProjects(res.data);
             })
             .catch(err => {
                 console.log('Something went wrong.')
             });
-    }, [sortBy, currentPage]);
+    }, [sortBy, currentPage, category]);
 
-    const getShortDescription = (desc) => {
-        if (desc.length <= 50) return desc;
-        return desc.substring(0, 50) + '...';
-    }
+    const categories = [
+        'Action',
+        'Adventure',
+        'Fantasy',
+        'Obby',
+        'Racing',
+        'RolePlay',
+        'RPG',
+        'Shooter/FPS',
+        'Simulator',
+        'Survival'
+    ];
 
     function getTimeDifference(isoString) {
         const now = new Date();
@@ -131,7 +140,35 @@ export default function AllProjects({ activeIndex }) {
                     <div className="heading-section">
                         <h2 className="tf-title style-1 pb-30">Projects</h2>
                         <div className="tf-soft">
-                            <div className="soft-right">
+                            <div className="soft-right flex mr-0 ml-auto gap20">
+                                <Menu as="div" className="dropdown">
+                                    <Menu.Button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                        <span className="inner">Category</span>
+                                    </Menu.Button>
+                                    <Menu.Items as="div" className="dropdown-menu d-block" aria-labelledby="dropdownMenuButton">
+                                        <a className="dropdown-item" onClick={e => setCategory('All')}>
+                                            <div className={"sort-filter " + (category === 'All' ? 'active' : '')}>
+                                                <span>All</span>
+                                                <span className="icon-tick"><span className="path2" /></span>
+                                            </div>
+                                        </a>
+                                        {
+                                            categories.map((subCategory, index) => {
+                                                return (
+                                                    <a className="dropdown-item" key={`cateogry-${index}`} onClick={e => setCategory(subCategory)}>
+                                                        <div className={"sort-filter " + (category === subCategory ? 'active' : '')}>
+                                                            <span>{subCategory}</span>
+                                                            <span className="icon-tick"><span className="path2" /></span>
+                                                        </div>
+                                                    </a>
+                                                )
+                                            })
+                                        }
+                                    </Menu.Items>
+                                </Menu>
                                 <Menu as="div" className="dropdown">
                                     <Menu.Button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" aria-haspopup="true" aria-expanded="false">
                                         <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -291,7 +328,7 @@ export default function AllProjects({ activeIndex }) {
                                     <div className="widget-creators-item flex items-center mb-20">
                                         <div className="order">{index + 1}. </div>
                                         <div className="author flex items-center flex-grow">
-                                            <img src="assets/images/avatar/avatar-small-01.png" alt="" />
+                                            <img src={creator?.avatar} alt="" />
                                             <div className="info">
                                                 <h6><Link href="#">{creator?.name}</Link></h6>
                                             </div>
@@ -364,13 +401,4 @@ export default function AllProjects({ activeIndex }) {
             <BidModal handleBidModal={handleBidModal} isBidModal={isBidModal} />
         </>
     )
-}
-
-function HtmlRenderer({ htmlContent }) {
-    return (
-        <div
-            className="description-display"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
-    );
 }

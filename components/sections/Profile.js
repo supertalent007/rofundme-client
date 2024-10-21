@@ -1,277 +1,218 @@
-import Link from 'next/link'
-import { Autoplay, Navigation, Pagination } from "swiper/modules"
-import { Swiper, SwiperSlide } from "swiper/react"
-import AutoSlider1 from '../slider/AutoSlider1'
-import AutoSlider2 from '../slider/AutoSlider2'
+import React, { useEffect, useState } from 'react';
+import Link from "next/link";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
 
-const swiperOptions = {
-    modules: [Autoplay, Pagination, Navigation],
-    loop: false,
-    slidesPerView: 1,
-    spaceBetween: 25,
-    observer: true,
-    observeParents: true,
-    autoplay: {
-        delay: 2000,
-        disableOnInteraction: false
-    },
-    navigation: {
-        clickable: true,
-        nextEl: '.next-type1',
-        prevEl: '.prev-type1'
-    },
-    pagination: {
-        el: '.pagination-type1',
-        clickable: true
-    },
-    breakpoints: {
-        768: {
-            slidesPerView: 1
-        },
-        1024: {
-            slidesPerView: 1
-        },
-        1200: {
-            slidesPerView: 3
-        }
-    }
-}
+const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Profile() {
+    const [selectedImage, setSelectedImage] = useState('');
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        axios.get(`${BACKEND_API}/users/single/${jwtDecode(localStorage.getItem('token')).id}`)
+            .then(res => {
+                setUser(res.data);
+            })
+    }, []);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setUser({ ...user, avatar: file });
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSelectedImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        const userId = jwtDecode(localStorage.getItem('token')).id;
+
+        formData.append('userId', userId);
+        formData.append('firstName', user?.firstName);
+        formData.append('lastName', user?.lastName);
+        formData.append('email', user?.email);
+        formData.append('country', user?.country);
+        formData.append('state', user?.state);
+        formData.append('ciry', user?.ciry);
+        formData.append('address', user?.address);
+        formData.append('zipCode', user?.zipCode);
+        formData.append('avatar', user?.avatar);
+
+        try {
+            await axios.put(`${BACKEND_API}/users/update`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            toast.success('Updated user profile successfully.');
+        } catch (error) {
+            toast.error('Failed to update user profile.');
+        }
+    }
+
     return (
         <>
-            <div className="wrapper-content">
-                <div className="profile-content">
-                    <div className="add-new-collection mb-40">
-                        <div className="w-full">
-                            <h6><i className="icon-add" /> Add new collection</h6>
-                            <p>create and store the best collections of NFTs</p>
-                        </div>
-                        <Link href="#" className="tf-button style-1 w174 h50">Create<i className="icon-arrow-up-right2" /></Link>
-                    </div>
-                    <div className="heading-section">
-                        <h2 className="tf-title pb-20">China collection</h2>
-                    </div>
-                    <div className="top-collections style-bottom mb-40">
-                        <Swiper {...swiperOptions} className="featured pt-10 swiper-container carousel3-type1">
-                            <div className="swiper-wrapper">
-                                <SwiperSlide>
-                                    <div className="tf-card-collection">
-                                        <Link href="author-2.html">
-                                            <div className="media-images-collection">
-                                                <img src="assets/images/box-item/img-collection-01.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-02.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-03.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-04.jpg" alt="" />
-                                                <div className="author-poster">
-                                                    <img src="assets/images/avatar/avatar-01.png" alt="" className="w-full" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <div className="card-bottom">
-                                            <div className="author">
-                                                <h5><Link href="author01.html">Bored ape#21</Link></h5>
-                                                <div className="infor">@Themesflat</div>
-                                            </div>
-                                            <div className="bottom-right">
-                                                <div className="shop">
-                                                    <div className="icon">
-                                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
-                                                    <p>12 Item</p>
-                                                </div>
-                                                <div className="like">
-                                                    <span className="wishlist-button icon-heart" />
-                                                    <p>97 like</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div className="tf-card-collection">
-                                        <Link href="author-2.html">
-                                            <div className="media-images-collection">
-                                                <img src="assets/images/box-item/img-collection-01.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-02.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-03.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-04.jpg" alt="" />
-                                                <div className="author-poster">
-                                                    <img src="assets/images/avatar/avatar-01.png" alt="" className="w-full" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <div className="card-bottom">
-                                            <div className="author">
-                                                <h5><Link href="author01.html">Bored ape#21</Link></h5>
-                                                <div className="infor">@Themesflat</div>
-                                            </div>
-                                            <div className="bottom-right">
-                                                <div className="shop">
-                                                    <div className="icon">
-                                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
-                                                    <p>12 Item</p>
-                                                </div>
-                                                <div className="like">
-                                                    <span className="wishlist-button icon-heart" />
-                                                    <p>97 like</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div className="tf-card-collection">
-                                        <Link href="author-2.html">
-                                            <div className="media-images-collection">
-                                                <img src="assets/images/box-item/img-collection-01.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-02.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-03.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-04.jpg" alt="" />
-                                                <div className="author-poster">
-                                                    <img src="assets/images/avatar/avatar-01.png" alt="" className="w-full" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <div className="card-bottom">
-                                            <div className="author">
-                                                <h5><Link href="author01.html">Bored ape#21</Link></h5>
-                                                <div className="infor">@Themesflat</div>
-                                            </div>
-                                            <div className="bottom-right">
-                                                <div className="shop">
-                                                    <div className="icon">
-                                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
-                                                    <p>12 Item</p>
-                                                </div>
-                                                <div className="like">
-                                                    <span className="wishlist-button icon-heart" />
-                                                    <p>97 like</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div className="tf-card-collection">
-                                        <Link href="author-2.html">
-                                            <div className="media-images-collection">
-                                                <img src="assets/images/box-item/img-collection-01.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-02.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-03.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-04.jpg" alt="" />
-                                                <div className="author-poster">
-                                                    <img src="assets/images/avatar/avatar-01.png" alt="" className="w-full" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <div className="card-bottom">
-                                            <div className="author">
-                                                <h5><Link href="author01.html">Bored ape#21</Link></h5>
-                                                <div className="infor">@Themesflat</div>
-                                            </div>
-                                            <div className="bottom-right">
-                                                <div className="shop">
-                                                    <div className="icon">
-                                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
-                                                    <p>12 Item</p>
-                                                </div>
-                                                <div className="like">
-                                                    <span className="wishlist-button icon-heart" />
-                                                    <p>97 like</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div className="tf-card-collection">
-                                        <Link href="author-2.html">
-                                            <div className="media-images-collection">
-                                                <img src="assets/images/box-item/img-collection-01.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-02.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-03.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-04.jpg" alt="" />
-                                                <div className="author-poster">
-                                                    <img src="assets/images/avatar/avatar-01.png" alt="" className="w-full" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <div className="card-bottom">
-                                            <div className="author">
-                                                <h5><Link href="author01.html">Bored ape#21</Link></h5>
-                                                <div className="infor">@Themesflat</div>
-                                            </div>
-                                            <div className="bottom-right">
-                                                <div className="shop">
-                                                    <div className="icon">
-                                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
-                                                    <p>12 Item</p>
-                                                </div>
-                                                <div className="like">
-                                                    <span className="wishlist-button icon-heart" />
-                                                    <p>97 like</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div className="tf-card-collection">
-                                        <Link href="author-2.html">
-                                            <div className="media-images-collection">
-                                                <img src="assets/images/box-item/img-collection-01.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-02.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-03.jpg" alt="" />
-                                                <img src="assets/images/box-item/img-collection-04.jpg" alt="" />
-                                                <div className="author-poster">
-                                                    <img src="assets/images/avatar/avatar-01.png" alt="" className="w-full" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <div className="card-bottom">
-                                            <div className="author">
-                                                <h5><Link href="author01.html">Bored ape#21</Link></h5>
-                                                <div className="infor">@Themesflat</div>
-                                            </div>
-                                            <div className="bottom-right">
-                                                <div className="shop">
-                                                    <div className="icon">
-                                                        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
-                                                    <p>12 Item</p>
-                                                </div>
-                                                <div className="like">
-                                                    <span className="wishlist-button icon-heart" />
-                                                    <p>97 like</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                            </div>
-                            <div className="swiper-pagination pagination-type1" />
-                            <div className="swiper-button-next next-type1" />
-                            <div className="swiper-button-prev prev-type1" />
-                        </Swiper>
+            <div className="flex row wrapper-content">
+                <div className='col-4 widget-edit mb-30 profile flex flex-col align-center justify-center'>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        id="avatar-file-input"
+                        onChange={handleImageUpload}
+                    />
+                    <img
+                        src={selectedImage ? selectedImage : user?.avatar}
+                        alt="User Avatar"
+                        style={{
+                            width: '200px',
+                            height: '200px',
+                            objectFit: 'fill',
+                            borderRadius: '50%'
+                        }}
+                        onClick={() => document.getElementById('avatar-file-input').click()}
+                    />
+
+                    <div className="flex flex-col mt-4 widget-social">
+                        <ul className="flex">
+                            <li><Link href="#" className="icon-facebook" /></li>
+                            <li><Link href="#" className="icon-twitter" /></li>
+                            <li><Link href="#" className="icon-vt" /></li>
+                            <li><Link href="#" className="icon-tiktok" /></li>
+                            <li><Link href="#" className="icon-youtube" /></li>
+                        </ul>
                     </div>
                 </div>
+                <div className='col-7 widget-edit mb-30 profile mr-0 ml-auto'>
+                    <div className="flex gap20">
+                        <input
+                            type="text"
+                            id="first-name"
+                            name="first-name"
+                            placeholder='First Name'
+                            className="mb-3 mt-3"
+                            value={user?.firstName}
+                            onChange={e => setUser({ ...user, firstName: e.target.value })}
+                        />
+
+                        <input
+                            type="text"
+                            id="last-name"
+                            name="last-name"
+                            placeholder='Last Name'
+                            className="mb-3 mt-3"
+                            value={user?.lastName}
+                            onChange={e => setUser({ ...user, lastName: e.target.value })}
+                        />
+                    </div>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder='Email'
+                        className="mb-3 mt-3"
+                        value={user?.email}
+                        onChange={e => setUser({ ...user, email: e.target.value })}
+                    />
+
+                    <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        placeholder='Address'
+                        className="mb-3 mt-3"
+                        value={user?.address}
+                        onChange={e => setUser({ ...user, address: e.target.value })}
+                    />
+                    <div className="flex gap20">
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            placeholder='City'
+                            className="mb-3 mt-3"
+                            value={user?.city}
+                            onChange={e => setUser({ ...user, city: e.target.value })}
+                        />
+
+                        <input
+                            type="text"
+                            id="state"
+                            name="state"
+                            placeholder='State'
+                            className="mb-3 mt-3"
+                            value={user?.state}
+                            onChange={e => setUser({ ...user, state: e.target.value })}
+                        />
+                    </div>
+
+                    <div className="flex gap20">
+                        <input
+                            type="text"
+                            id="country"
+                            name="country"
+                            placeholder='Country'
+                            className="mb-3 mt-3"
+                            value={user?.country}
+                            onChange={e => setUser({ ...user, country: e.target.value })}
+                        />
+
+                        <input
+                            type="text"
+                            id="zip"
+                            name="zip"
+                            placeholder='Zip Code'
+                            className="mb-3 mt-3"
+                            value={user?.zipCode}
+                            onChange={e => setUser({ ...user, zipCode: e.target.value })}
+                        />
+                    </div>
+                </div>
+                <div className="widget-edit mb-30 setting col-12">
+                    <div className="title">
+                        <h4>Notification setting</h4>
+                        <i className="icon-keyboard_arrow_up" />
+                    </div>
+                    <form id="commentform" className="comment-form" noValidate="novalidate">
+                        <div className="notification-setting-item">
+                            <div className="content">
+                                <h6>Order confirmation</h6>
+                                <p>will be notified when customer order any project</p>
+                            </div>
+                            <input className="check" type="checkbox" defaultValue="checkbox" name="check" defaultChecked />
+                        </div>
+                        <div className="notification-setting-item">
+                            <div className="content">
+                                <h6>New Projects Notification</h6>
+                                <p>Get notified instantly whenever new projects are posted on the platform</p>
+                            </div>
+                            <input className="check" type="checkbox" defaultValue="checkbox" name="check" />
+                        </div>
+                        <div className="notification-setting-item">
+                            <div className="content">
+                                <h6>Payment Card Notification</h6>
+                                <p>Receive instant notifications when a payment card is added or updated on your account</p>
+                            </div>
+                            <input className="check" type="checkbox" defaultValue="checkbox" name="check" defaultChecked />
+                        </div>
+                        <div className="notification-setting-item">
+                            <div className="content">
+                                <h6>Email notification</h6>
+                                <p>Turn on email notification to get updates through email</p>
+                            </div>
+                            <input className="check" type="checkbox" defaultValue="checkbox" name="check" />
+                        </div>
+                    </form>
+                </div>
+
+                <button className="w-full" onClick={handleSubmit}>Save</button>
             </div>
         </>
     )

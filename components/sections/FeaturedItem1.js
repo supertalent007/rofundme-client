@@ -10,8 +10,8 @@ export default function FeaturedItem1() {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="heading-section pb-20">
-                                <h2 className="tf-title ">Featured Item</h2>
-                                <Link href="/explore-3">Discover more <i className="icon-arrow-right2" /></Link>
+                                <h2 className="tf-title ">Featured Projects</h2>
+                                <Link href="/projects">Discover more <i className="icon-arrow-right2" /></Link>
                             </div>
                         </div>
                         <div className="col-md-12">

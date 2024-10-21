@@ -13,14 +13,6 @@ export default function Home() {
                             <div className="row">
                                 <div className="col-12">
                                     <h1 className="heading text-center">Get In Touch</h1>
-                                    <ul className="breadcrumbs flex justify-center">
-                                        <li className="icon-keyboard_arrow_right">
-                                            <Link href="/">Home</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="#">Explore</Link>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -47,22 +39,22 @@ export default function Home() {
                                 </div>
                                 <div data-wow-delay="0s" className="wow fadeInUp col-md-4">
                                     <div className="box-icon-item">
-                                        <img src="/assets/images/box-icon/address.png" alt="" />
+                                        <img src="/assets/images/box-icon/address.png" alt="" height='150px' width='150px' />
                                         <div className="title"><Link href="#">Office address</Link></div>
-                                        <p>1901 Thornridge Cir. Shiloh, Hawaii 81063</p>
+                                        <p>1234 Ocean Breeze Dr.Miami, Florida 33101</p>
                                     </div>
                                 </div>
                                 <div data-wow-delay="0.1s" className="wow fadeInUp col-md-4">
                                     <div className="box-icon-item">
-                                        <img src="/assets/images/box-icon/email.png" alt="" />
+                                        <img src="/assets/images/box-icon/email.png" alt="" height='150px' width='150px' />
                                         <div className="title"><Link href="#">Email</Link></div>
-                                        <p>open9@support.com
-                                            open9vietnam@support.com</p>
+                                        <p>rofundme@support.com
+                                            rofundme@team.com</p>
                                     </div>
                                 </div>
                                 <div data-wow-delay="0.2s" className="wow fadeInUp col-md-4">
                                     <div className="box-icon-item">
-                                        <img src="/assets/images/box-icon/phone.png" alt="" />
+                                        <img src="/assets/images/box-icon/phone.webp" alt="" height='150px' width='150px' />
                                         <div className="title"><Link href="#">Phone number</Link></div>
                                         <p>(316) 555-0116 <br />
                                             (219) 555-0114</p>
@@ -97,7 +89,7 @@ export default function Home() {
                                             <textarea className="style-1" id="message" name="message" rows={4} placeholder="Your message*" tabIndex={4} aria-required="true" required />
                                         </fieldset>
                                         <div className="btn-submit">
-                                            <button className="tf-button style-1" type="submit">Send message <i className="icon-arrow-up-right2" /></button>
+                                            <button className="tf-button style-1" type="submit">Send message</button>
                                         </div>
                                     </form>
                                 </div>

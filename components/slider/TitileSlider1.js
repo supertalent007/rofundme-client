@@ -77,14 +77,14 @@ export default function TitileSlider1() {
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0.55</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -97,14 +97,14 @@ export default function TitileSlider1() {
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -117,14 +117,14 @@ export default function TitileSlider1() {
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -137,14 +137,14 @@ export default function TitileSlider1() {
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -157,194 +157,194 @@ export default function TitileSlider1() {
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-06.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-4.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-07.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-3.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-01.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-2.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-02.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-1.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-03.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-5.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-04.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-4.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-05.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-3.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-06.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-2.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="tf-card-box">
                         <div className="card-media">
                             <Link href="#">
-                                <img src="/assets/images/box-item/banner-07.jpg" alt="" />
+                                <img src="/assets/images/box-item/ad-1.png" alt="" />
                             </Link>
                             <span className="wishlist-button icon-heart" />
                             <div className="featured-countdown">
                                 {timerx}
                             </div>
-                            <div className="button-place-bid">
+                            {/* <div className="button-place-bid">
                                 <a onClick={handleBidModal} href="#" className="tf-button"><span>fund</span></a>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="meta-info text-center">
+                        {/* <div className="meta-info text-center">
                             <h5 className="name"><Link href="#">Dayco serpentine belt</Link></h5>
                             <h6 className="price gem flex center justify-center"><IconCoin />0,34</h6>
-                        </div>
+                        </div> */}
                     </div>
                 </SwiperSlide>
 
@@ -352,7 +352,7 @@ export default function TitileSlider1() {
             </Swiper>
             <div className="swiper-button-next next-3d over" />
             <div className="swiper-button-prev prev-3d over" />
-            <BidModal handleBidModal={handleBidModal} isBidModal={isBidModal} />
+            {/* <BidModal handleBidModal={handleBidModal} isBidModal={isBidModal} /> */}
 
         </>
     )

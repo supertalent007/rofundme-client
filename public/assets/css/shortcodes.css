@@ -6450,3 +6450,25 @@ fieldset.password>i::before {
 .force-w-full {
     width: 100% !important;
 }
+
+.gap20 {
+    gap: 20px;
+}
+
+.content-inner ul {
+    margin-top: 10px;
+}
+
+.content-inner ul li {
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 15px;
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    list-style: disc;
+}
+
+.content-inner a {
+    color: #fff !important;
+    cursor: pointer;
+}

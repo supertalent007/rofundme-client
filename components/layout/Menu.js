@@ -53,10 +53,10 @@ export default function Menu() {
                     <a>Pages</a>
                     <ul className="sub-menu">
                         <li className="menu-item has-item">
-                            <Link href="/market">Market</Link>
+                            <Link href="/projects">Projects</Link>
                             <ul className="nav-sub-menu">
                                 <li className="nav-menu-item"><Link href="/project-create">Create</Link></li>
-                                <li className="nav-menu-item"><Link href="/market">Market</Link></li>
+                                <li className="nav-menu-item"><Link href="/projects">Projects</Link></li>
                                 <li className="nav-menu-item"><Link href="/market-active-bid">Active Bid</Link></li>
                                 <li className="nav-menu-item"><Link href="/market-explore">Explore</Link></li>
                                 <li className="nav-menu-item"><Link href="/market-collection">My collection</Link></li>

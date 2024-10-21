@@ -16,44 +16,27 @@ export default function Footer1() {
                                     </div>
                                 </div>
                                 <div className="widget widget-menu style-1">
-                                    <h5 className="title-widget">Marketplace</h5>
+                                    <h5 className="title-widget">Project</h5>
                                     <ul>
-                                        <li><Link href="#">All NFTs</Link></li>
-                                        <li><Link href="#">Virtual worlds</Link></li>
-                                        <li><Link href="#">Domain names</Link></li>
-                                        <li><Link href="#">Photography</Link></li>
-                                        <li><Link href="#">Digital art</Link></li>
-                                        <li><Link href="#">Music</Link></li>
-                                    </ul>
-                                </div>
-                                <div className="widget widget-menu style-2">
-                                    <h5 className="title-widget">Resource</h5>
-                                    <ul>
-                                        <li><Link href="#">Help center</Link></li>
-                                        <li><Link href="#">Platform status</Link></li>
-                                        <li><Link href="#">Partners</Link></li>
-                                        <li><Link href="#">Discount community</Link></li>
-                                        <li><Link href="#">Live auctions</Link></li>
-                                        <li><Link href="#">Discover</Link></li>
+                                        <li><Link href="/projects">All Projects</Link></li>
+                                        <li><Link href="#">Start A Campaign</Link></li>
                                     </ul>
                                 </div>
                                 <div className="widget widget-menu style-3">
-                                    <h5 className="title-widget">Account</h5>
+                                    <h5 className="title-widget">Learn</h5>
                                     <ul>
-                                        <li><Link href="#">Authors</Link></li>
-                                        <li><Link href="#">My Collection</Link></li>
-                                        <li><Link href="#">Author Profile</Link></li>
-                                        <li><Link href="#">Go to dashboard</Link></li>
-                                        <li><Link href="#">Collection</Link></li>
-                                        <li><Link href="#">Create Collection</Link></li>
+                                        <li><Link href="#">How It Works</Link></li>
+                                        <li><Link href="#">Education Center</Link></li>
+                                        <li><Link href="#">What is Crowdfunding</Link></li>
+                                        <li><Link href="#">Trust & Safety</Link></li>
                                     </ul>
                                 </div>
                                 <div className="widget-last">
                                     <div className="widget-menu style-4">
                                         <h5 className="title-widget">Company</h5>
                                         <ul>
-                                            <li><Link href="#">Help center</Link></li>
-                                            <li><Link href="#">Platform status</Link></li>
+                                            <li><Link href="/about-us">About Us</Link></li>
+                                            <li><Link href="/contact-us">Contact Us</Link></li>
                                         </ul>
                                     </div>
                                     <h5 className="title-widget mt-30">Join the community</h5>
@@ -71,13 +54,13 @@ export default function Footer1() {
                         </div>
                     </div>
                     <div className="footer-bottom">
-                        <p>© {new Date().getFullYear()} OpeN9 - Made By Themesflat</p>
+                        <p>© {new Date().getFullYear()} RoFundMe - Made By Terry</p>
                         <ul className="flex">
                             <li>
-                                <Link href="#">Privacy Policy</Link>
+                                <Link href="/privacy-policy">Privacy Policy</Link>
                             </li>
                             <li>
-                                <Link href="#">Terms of Service</Link>
+                                <Link href="/terms-condition">Terms of Service</Link>
                             </li>
                         </ul>
                     </div>
