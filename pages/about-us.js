@@ -131,25 +131,26 @@ export default function Home() {
                                 </div>
                                 <div data-wow-delay="0s" className="wow fadeInUp col-md-4">
                                     <div className="box-icon-item">
-                                        <img src="/assets/images/item-background/about-01.png" alt="" />
+                                        <img className="custom-image-height" src="/assets/images/item-background/about-01.webp" alt="" />
                                         <div className="title"><Link href="#">Roblox-Focused Community</Link></div>
                                         <p>RoFundMe is tailored exclusively for Roblox game developers, ensuring that your project is seen and supported by a community that truly understands and appreciates Roblox creations.</p>
                                     </div>
                                 </div>
                                 <div data-wow-delay="0.1s" className="wow fadeInUp col-md-4">
                                     <div className="box-icon-item">
-                                        <img src="/assets/images/item-background/about-02.png" alt="" />
+                                        <img className="custom-image-height" src="/assets/images/item-background/about-02.webp" alt="" />
                                         <div className="title"><Link href="#">Seamless Fundraising</Link></div>
                                         <p>We make it easy for you to raise funds with user-friendly tools and secure payment options, so you can focus on what matters most—building your game and engaging with your supporters.</p>
                                     </div>
                                 </div>
                                 <div data-wow-delay="0.2s" className="wow fadeInUp col-md-4">
                                     <div className="box-icon-item">
-                                        <img src="/assets/images/item-background/about-03.png" alt="" />
+                                        <img className="custom-image-height" src="/assets/images/item-background/about-03.webp" alt="" />
                                         <div className="title"><Link href="#">Boost Your Game’s Visibility</Link></div>
                                         <p>By hosting your project on RoFundMe, you get access to a platform designed to showcase Roblox games, helping you gain visibility and reach more potential backers passionate about your idea.</p>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -216,7 +217,7 @@ export default function Home() {
                             </div>
                             <div className="row">
                                 <div className="col-12">
-                                    <Link href="#" className="tf-button style-1 h50 w190 m-auto">Join us<i className="icon-arrow-up-right2" /></Link>
+                                    <Link href="#" className="tf-button style-1 h50 w190 m-auto">Join us</Link>
                                 </div>
                             </div>
                         </div>

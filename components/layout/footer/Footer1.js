@@ -19,16 +19,16 @@ export default function Footer1() {
                                     <h5 className="title-widget">Project</h5>
                                     <ul>
                                         <li><Link href="/projects">All Projects</Link></li>
-                                        <li><Link href="#">Start A Campaign</Link></li>
+                                        <li><Link href="/project-create">Start A Campaign</Link></li>
                                     </ul>
                                 </div>
                                 <div className="widget widget-menu style-3">
                                     <h5 className="title-widget">Learn</h5>
                                     <ul>
-                                        <li><Link href="#">How It Works</Link></li>
-                                        <li><Link href="#">Education Center</Link></li>
-                                        <li><Link href="#">What is Crowdfunding</Link></li>
-                                        <li><Link href="#">Trust & Safety</Link></li>
+                                        <li><Link href="/faq">How It Works</Link></li>
+                                        <li><Link href="/faq">Education Center</Link></li>
+                                        <li><Link href="/faq">What is Crowdfunding</Link></li>
+                                        <li><Link href="/faq">Trust & Safety</Link></li>
                                     </ul>
                                 </div>
                                 <div className="widget-last">

@@ -6472,3 +6472,13 @@ fieldset.password>i::before {
     color: #fff !important;
     cursor: pointer;
 }
+
+.menu-item.current-item a {
+    color: #DDF247 !important;
+}
+
+.custom-image-height {
+    height: 200px;
+    object-fit: contain;
+    width: 100%;
+}

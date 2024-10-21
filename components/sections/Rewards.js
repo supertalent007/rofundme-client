@@ -26,12 +26,12 @@ function RewardCard({ reward, project, isMobile }) {
     const stripe = useStripe();
     const elements = useElements();
 
-    useEffect(() => {
-        axios.get(`${BACKEND_API}/get_number_of_backers?id=${reward?._id}`)
-            .then(res => {
-                console.log(res.data);
-            })
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`${BACKEND_API}/get_number_of_backers?id=${reward?._id}`)
+    //         .then(res => {
+    //             console.log(res.data);
+    //         })
+    // }, []);
 
     const formatEstimatedDeliveryDate = (createdAt, durationInDays) => {
         const createdDate = new Date(createdAt);

@@ -12,7 +12,7 @@ export default function Menu() {
                 <Link className={router.pathname == "/index-2" ? "active" : ""}>Home Interior</Link>
             </ul> */}
             <ul id="menu-primary-menu" className="menu">
-                {/* <li className="menu-item">
+                <li className="menu-item menu-item-has-children">
                     <a>Home</a>
                     <ul className="sub-menu">
                         <li className={router.pathname == "/" ? "menu-item current-item" : "menu-item"}><Link href="/">Home 1</Link></li>
@@ -31,17 +31,11 @@ export default function Menu() {
                             </ul>
                         </li>
                     </ul>
-                </li> */}
-                <li className={router.pathname == "/" ? "menu-item current-item" : "menu-item"}>
-                    <Link href="/">Home</Link>
                 </li>
-                <li className={router.pathname == "/about-us" ? "menu-item current-item" : "menu-item"}>
+                <li className={router.pathname == "/home" ? "menu-item current-item" : "menu-item"}>
                     <Link href="/about-us">About us</Link>
                 </li>
-                <li className={router.pathname == "/projects" ? "menu-item current-item" : "menu-item"}>
-                    <Link href="/projects">Features</Link>
-                </li>
-                {/* <li className="menu-item menu-item-has-children">
+                <li className="menu-item menu-item-has-children">
                     <a>Explore</a>
                     <ul className="sub-menu">
                         <li className={router.pathname == "/explore-1" ? "menu-item current-item" : "menu-item"}><Link href="/explore-1">Explore Style 1</Link></li>
@@ -54,11 +48,11 @@ export default function Menu() {
                         <li className={router.pathname == "/ranking" ? "menu-item current-item" : "menu-item"}><Link href="/ranking">Ranking</Link></li>
                         <li className={router.pathname == "/upcoming" ? "menu-item current-item" : "menu-item"}><Link href="/upcoming">Upcoming Projects</Link></li>
                     </ul>
-                </li> */}
+                </li>
                 <li className="menu-item menu-item-has-children">
-                    <a>Help</a>
+                    <a>Pages</a>
                     <ul className="sub-menu">
-                        {/* <li className="menu-item has-item">
+                        <li className="menu-item has-item">
                             <Link href="/projects">Projects</Link>
                             <ul className="nav-sub-menu">
                                 <li className="nav-menu-item"><Link href="/project-create">Create</Link></li>
@@ -71,21 +65,20 @@ export default function Menu() {
                                 <li className="nav-menu-item"><Link href="/market-history">History</Link></li>
                                 <li className="nav-menu-item"><Link href="/market">Settings</Link></li>
                             </ul>
-                        </li> */}
-                        {/* <li className={router.pathname == "/author-1" ? "menu-item current-item" : "menu-item"}><Link href="/author-1">Authors Style 1</Link></li>
-                        <li className={router.pathname == "/author-2" ? "menu-item current-item" : "menu-item"}><Link href="/author-2">Authors Style 2</Link></li> */}
+                        </li>
+                        <li className={router.pathname == "/author-1" ? "menu-item current-item" : "menu-item"}><Link href="/author-1">Authors Style 1</Link></li>
+                        <li className={router.pathname == "/author-2" ? "menu-item current-item" : "menu-item"}><Link href="/author-2">Authors Style 2</Link></li>
                         <li className={router.pathname == "/terms-condition" ? "menu-item current-item" : "menu-item"}><Link href="/terms-condition">Terms &amp; Condition</Link></li>
-                        <li className={router.pathname == "/privacy-policy" ? "menu-item current-item" : "menu-item"}><Link href="/privacy-policy">Privacy Policy</Link></li>
-                        {/* <li className={router.pathname == "/no-result" ? "menu-item current-item" : "menu-item"}><Link href="/no-result">No Result</Link></li> */}
+                        <li className={router.pathname == "/no-result" ? "menu-item current-item" : "menu-item"}><Link href="/no-result">No Result</Link></li>
                         <li className={router.pathname == "/faq" ? "menu-item current-item" : "menu-item"}><Link href="/faq">FAQs</Link></li>
-                        {/* <li className={router.pathname == "/coming-soon" ? "menu-item current-item" : "menu-item"}><Link href="/coming-soon">Coming Soon</Link></li>
+                        <li className={router.pathname == "/coming-soon" ? "menu-item current-item" : "menu-item"}><Link href="/coming-soon">Coming Soon</Link></li>
                         <li className={router.pathname == "/maintenance" ? "menu-item current-item" : "menu-item"}><Link href="/maintenance">Maintenance</Link></li>
                         <li className={router.pathname == "/404" ? "menu-item current-item" : "menu-item"}><Link href="/404">404</Link></li>
                         <li className={router.pathname == "/login" ? "menu-item current-item" : "menu-item"}><Link href="/login">Login</Link></li>
-                        <li className={router.pathname == "/sign-up" ? "menu-item current-item" : "menu-item"}><Link href="/sign-up">Sign up</Link></li> */}
+                        <li className={router.pathname == "/sign-up" ? "menu-item current-item" : "menu-item"}><Link href="/sign-up">Sign up</Link></li>
                     </ul>
                 </li>
-                {/* <li className="menu-item menu-item-has-children">
+                <li className="menu-item menu-item-has-children">
                     <a>Blog</a>
                     <ul className="sub-menu">
                         <li className={router.pathname == "/blog-grid" ? "menu-item current-item" : "menu-item"}><Link href="/blog-grid">Blog Grid</Link></li>
@@ -94,7 +87,7 @@ export default function Menu() {
                         <li className={router.pathname == "/blog-list-1" ? "menu-item current-item" : "menu-item"}><Link href="/blog-list-1">Blog List 1</Link></li>
                         <li className={router.pathname == "/blog-detail" ? "menu-item current-item" : "menu-item"}><Link href="/blog-detail">Blog Details</Link></li>
                     </ul>
-                </li> */}
+                </li>
                 <li className={router.pathname == "/contact-us" ? "menu-item current-item" : "menu-item"}>
                     <Link href="/contact-us">Contact</Link>
                 </li>
