@@ -15,6 +15,7 @@ export default function History({ activeIndex }) {
     const [recentProjects, setRecentProjects] = useState([]);
     const [topCreators, setTopCreators] = useState([]);
     const [transactions, setTransactions] = useState([]);
+    const [latestTransactions, setLatestTransactions] = useState([]);
 
     useEffect(() => {
         axios.get(`${BACKEND_API}/projects/recent`)
@@ -29,9 +30,18 @@ export default function History({ activeIndex }) {
 
         const userId = jwtDecode(localStorage.getItem('token')).id;
 
-        axios.get(`${BACKEND_API}/transactions?userId=${userId}`)
+        axios.get(`${BACKEND_API}/transactions/${userId}`)
             .then(res => {
                 setTransactions(res.data);
+            })
+
+        axios
+            .get(`${BACKEND_API}/transactions/latest`)
+            .then(res => {
+                setLatestTransactions(res.data);
+            })
+            .catch(err => {
+                console.error('Failed to get transaction data:', err);
             })
     }, [activeIndex]);
 
@@ -63,8 +73,7 @@ export default function History({ activeIndex }) {
                         </div>
                         <h2>Discover, Fund, and Launch Roblox Game</h2>
                         <div className="flat-button flex">
-                            <Link href="#" className="tf-button style-2 h50 w190 mr-10">Explore now<i className="icon-arrow-up-right2" /></Link>
-                            <Link href="#" className="tf-button style-2 h50 w230">Create your first Project<i className="icon-arrow-up-right2" /></Link>
+                            <Link href="/project-create" className="tf-button style-2 h50 w230">Create your first Project</Link>
                         </div>
                         <div className="bg-home7">
                             <AutoSlider1 />
@@ -126,7 +135,7 @@ export default function History({ activeIndex }) {
                                                 <div className="author">
                                                     <img src={project?.image} alt="" width='100px' />
                                                     <div className="info">
-                                                        <h6><Link href="#">{project?.title}</Link></h6>
+                                                        <h6><Link href={`/project/${project?._id}`}>{project?.title ? project.title.substring(0, 10) + (project.title.length > 10 ? '…' : '') : ''}</Link></h6>
                                                         <p><Link href="#">{project?.userId?.name}</Link></p>
                                                     </div>
                                                 </div>
@@ -164,62 +173,37 @@ export default function History({ activeIndex }) {
                             })
                         }
                     </div>
-                    <div className="widget widget-history">
-                        <div className="flex items-center justify-between">
-                            <h5 className="title-widget">History</h5>
-                            <Link className="see-all" href="#">See all</Link>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-01.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">Lorem NFT sold</Link></h6>
-                                    <span><Link href="#">Sold at 1.32 ETH</Link></span>
+                    {
+                        latestTransactions?.length ?
+                            <div className="widget widget-history">
+                                <div className="flex items-center justify-between">
+                                    <h5 className="title-widget">History</h5>
+                                    <Link className="see-all" href="#">See all</Link>
                                 </div>
-                            </div>
-                            <span className="time">Just now</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-02.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">New NFT uploaded</Link></h6>
-                                    <span><Link href="#">By Marisol Pena</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">1hr ago</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-03.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">You followed a creator</Link></h6>
-                                    <span><Link href="#">Jane Cooper</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">2hr ago</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-04.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">You placed a bid</Link></h6>
-                                    <span><Link href="#">Whirl wind NFT</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">4hr ago</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-01.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">You followed a creator</Link></h6>
-                                    <span><Link href="#">Courtney Henry</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">16hr ago</span>
-                        </div>
-                    </div>
+                                {
+                                    latestTransactions?.map(transaction => {
+                                        return (
+                                            <div className="widget-creators-item flex items-center mb-20" key={`transaction-${transaction?._id}`}>
+                                                <div className="author flex items-center flex-grow">
+                                                    <img src={transaction?.projectId?.image} alt="" />
+                                                    <div className="info">
+                                                        <h6 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: 'max-content' }}>
+                                                            <Link href="#" style={{ display: 'inline-block', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                                {transaction?.projectId?.title ? transaction.projectId.title.substring(0, 16) + (transaction.projectId.title.length > 16 ? '…' : '') : ''}
+                                                            </Link>
+                                                        </h6>
+                                                        <span><Link href="#">Funded ${transaction?.amount}</Link></span>
+                                                    </div>
+                                                </div>
+                                                <span className="date">
+                                                    {getTimeDifference(transaction?.projectId?.createdAt)}
+                                                </span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div> : ''
+                    }
                 </div>
             </div>
 

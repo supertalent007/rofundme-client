@@ -57,6 +57,7 @@ export default function AllProjects({ activeIndex }) {
     const [totalNumberOfProjects, setTotalNumberOfProjects] = useState(0);
     const [sortBy, setSortBy] = useState('recent');
     const [category, setCategory] = useState('All');
+    const [latestTransactions, setLatestTransactions] = useState([]);
 
     useEffect(() => {
         axios
@@ -66,7 +67,6 @@ export default function AllProjects({ activeIndex }) {
                 setTotalNumberOfPages(Math.ceil(res.data / projectsPerPage));
             })
 
-
         axios.get(`${BACKEND_API}/projects/recent`)
             .then(res => {
                 setRecentProjects(res.data);
@@ -75,6 +75,15 @@ export default function AllProjects({ activeIndex }) {
         axios.get(`${BACKEND_API}/users/top_creators`)
             .then(res => {
                 setTopCreators(res.data);
+            })
+
+        axios
+            .get(`${BACKEND_API}/transactions/latest`)
+            .then(res => {
+                setLatestTransactions(res.data);
+            })
+            .catch(err => {
+                console.error('Failed to get transaction data:', err);
             })
     }, [activeIndex]);
 
@@ -128,8 +137,7 @@ export default function AllProjects({ activeIndex }) {
                         </div>
                         <h2>Discover, Fund, and Launch Roblox Game</h2>
                         <div className="flat-button flex">
-                            <Link href="#" className="tf-button style-2 h50 w190 mr-10">Explore now<i className="icon-arrow-up-right2" /></Link>
-                            <Link href="#" className="tf-button style-2 h50 w230">Create your first Project<i className="icon-arrow-up-right2" /></Link>
+                            <Link href="/project-create" className="tf-button style-2 h50 w230">Create your first Project</Link>
                         </div>
                         <div className="bg-home7">
                             <AutoSlider1 />
@@ -207,7 +215,7 @@ export default function AllProjects({ activeIndex }) {
                                 {
                                     projects.length &&
                                     projects.map((project, index) => (
-                                        <div className="wrap-box-card col-4" key={`project-${index}`}>
+                                        <div className="wrap-box-card col-6" key={`project-${index}`}>
                                             <div className="col-item">
                                                 <div className="tf-card-box style-1">
                                                     <div className="card-media">
@@ -219,12 +227,12 @@ export default function AllProjects({ activeIndex }) {
                                                             <a href={`/project/${project?._id}`} className="tf-button"><span>Funding</span></a>
                                                         </div>
                                                     </div>
-                                                    <h5 className="name" ><Link href="#">
+                                                    <h5 className="name" style={{ height: '50px', overflow: 'hidden' }}><Link href="#">
                                                         {project?.title}
                                                     </Link></h5>
                                                     <div className="author flex items-center mt-3">
                                                         <div className="avatar">
-                                                            <img src="assets/images/avatar/avatar-box-03.jpg" alt="Image" />
+                                                            <img src={project?.userId?.avatar} alt="Image" />
                                                         </div>
                                                         <div className="info">
                                                             <span>Created by:</span>
@@ -232,11 +240,26 @@ export default function AllProjects({ activeIndex }) {
                                                                 {project?.userId?.name}
                                                             </Link> </h6>
                                                         </div>
+                                                        <div className="info mr-0 ml-auto">
+                                                            <span>Created at:</span>
+                                                            <h6>
+                                                                {getTimeDifference(project?.createdAt)}
+                                                            </h6>
+                                                        </div>
                                                     </div>
                                                     <div className="divider" />
                                                     <div className="meta-info flex items-center justify-between">
-                                                        <span className="text-bid">Goal</span>
-                                                        <h6 className="price gem"><i className="icon-gem" />{project?.goal}</h6>
+                                                        <div className="view-col w-full">
+                                                            <span className="primary-color">${project?.fundedAmount?.toLocaleString()}</span>
+                                                            <div className="w-full h-10 bg-white border-radius-10">
+                                                                <div
+                                                                    className="bg-secondary h-10 border-radius-10"
+                                                                    style={{ width: `${Math.floor((project?.fundedAmount / project?.goal) * 100)}%` }}
+                                                                />
+                                                            </div>
+                                                            <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()}`}</span>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,40 +304,40 @@ export default function AllProjects({ activeIndex }) {
                 </div>
                 <div className="side-bar">
                     {
-                        recentProjects.length &&
-                        <div className="widget widget-recently">
-                            <h5 className="title-widget">Recently added</h5>
-                            <div className="card-small-main">
-                                <img src={recentProjects[0].image} alt="" />
-                                <div className="card-bottom">
-                                    <h5><Link href="#">
-                                        {recentProjects[0].title}
-                                    </Link></h5>
-                                    <span className="date">{getTimeDifference(recentProjects[0].createdAt)}</span>
+                        recentProjects.length ?
+                            <div className="widget widget-recently">
+                                <h5 className="title-widget">Recently added</h5>
+                                <div className="card-small-main">
+                                    <img src={recentProjects[0].image} alt="" />
+                                    <div className="card-bottom">
+                                        <h5><Link href={`/project/${recentProjects[0]._id}`}>
+                                            {recentProjects[0].title}
+                                        </Link></h5>
+                                        <span className="date">{getTimeDifference(recentProjects[0].createdAt)}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            {
-                                recentProjects.map((project, index) => {
-                                    if (index && index <= 5) {
-                                        return (
-                                            <div className="card-small" key={`recent-project-${index}`}>
-                                                <div className="author">
-                                                    <img src={project?.image} alt="" width='100px' />
-                                                    <div className="info">
-                                                        <h6><Link href="#">{project?.title}</Link></h6>
-                                                        <p><Link href="#">{project?.userId?.name}</Link></p>
+                                {
+                                    recentProjects.map((project, index) => {
+                                        if (index && index <= 5) {
+                                            return (
+                                                <div className="card-small" key={`recent-project-${index}`}>
+                                                    <div className="author">
+                                                        <img src={project?.image} alt="" width='100px' />
+                                                        <div className="info">
+                                                            <h6><Link href={`/project/${project?._id}`}>{project?.title ? project.title.substring(0, 10) + (project.title.length > 10 ? '…' : '') : ''}</Link></h6>
+                                                            <p><Link href="#">{project?.userId?.name}</Link></p>
+                                                        </div>
                                                     </div>
+                                                    <span className="date">
+                                                        {getTimeDifference(project.createdAt)}
+                                                    </span>
                                                 </div>
-                                                <span className="date">
-                                                    {getTimeDifference(project.createdAt)}
-                                                </span>
-                                            </div>
-                                        )
-                                    }
+                                            )
+                                        }
 
-                                })
-                            }
-                        </div>
+                                    })
+                                }
+                            </div> : ''
                     }
                     <div className="widget widget-creators">
                         <div className="flex items-center justify-between">
@@ -330,7 +353,7 @@ export default function AllProjects({ activeIndex }) {
                                         <div className="author flex items-center flex-grow">
                                             <img src={creator?.avatar} alt="" />
                                             <div className="info">
-                                                <h6><Link href="#">{creator?.name}</Link></h6>
+                                                <h6><Link href={`/user/${creator?._id}`}>{creator?.name}</Link></h6>
                                             </div>
                                         </div>
                                         <button className="follow">Follow</button>
@@ -339,62 +362,37 @@ export default function AllProjects({ activeIndex }) {
                             })
                         }
                     </div>
-                    <div className="widget widget-history">
-                        <div className="flex items-center justify-between">
-                            <h5 className="title-widget">History</h5>
-                            <Link className="see-all" href="#">See all</Link>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-01.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">Lorem NFT sold</Link></h6>
-                                    <span><Link href="#">Sold at 1.32 ETH</Link></span>
+                    {
+                        latestTransactions?.length ?
+                            <div className="widget widget-history">
+                                <div className="flex items-center justify-between">
+                                    <h5 className="title-widget">History</h5>
+                                    <Link className="see-all" href="#">See all</Link>
                                 </div>
-                            </div>
-                            <span className="time">Just now</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-02.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">New NFT uploaded</Link></h6>
-                                    <span><Link href="#">By Marisol Pena</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">1hr ago</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-03.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">You followed a creator</Link></h6>
-                                    <span><Link href="#">Jane Cooper</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">2hr ago</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center mb-20">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-04.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">You placed a bid</Link></h6>
-                                    <span><Link href="#">Whirl wind NFT</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">4hr ago</span>
-                        </div>
-                        <div className="widget-creators-item flex items-center">
-                            <div className="author flex items-center flex-grow">
-                                <img src="assets/images/avatar/avatar-small-01.png" alt="" />
-                                <div className="info">
-                                    <h6><Link href="#">You followed a creator</Link></h6>
-                                    <span><Link href="#">Courtney Henry</Link></span>
-                                </div>
-                            </div>
-                            <span className="time">16hr ago</span>
-                        </div>
-                    </div>
+                                {
+                                    latestTransactions?.map(transaction => {
+                                        return (
+                                            <div className="widget-creators-item flex items-center mb-20" key={`transaction-${transaction?._id}`}>
+                                                <div className="author flex items-center flex-grow">
+                                                    <img src={transaction?.projectId?.image} alt="" />
+                                                    <div className="info">
+                                                        <h6 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: 'max-content' }}>
+                                                            <Link href="#" style={{ display: 'inline-block', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                                {transaction?.projectId?.title ? transaction.projectId.title.substring(0, 16) + (transaction.projectId.title.length > 16 ? '…' : '') : ''}
+                                                            </Link>
+                                                        </h6>
+                                                        <span><Link href="#">Funded ${transaction?.amount}</Link></span>
+                                                    </div>
+                                                </div>
+                                                <span className="date">
+                                                    {getTimeDifference(transaction?.projectId?.createdAt)}
+                                                </span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div> : ''
+                    }
                 </div>
             </div>
 

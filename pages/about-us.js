@@ -1,44 +1,46 @@
 import BidModal from "@/components/elements/BidModal"
 import Layout from "@/components/layout/Layout"
+import axios from "axios"
 import dynamic from 'next/dynamic'
 import Link from "next/link"
-import { Autoplay, Navigation, Pagination } from "swiper/modules"
-import { Swiper, SwiperSlide } from "swiper/react"
 
-const swiperOptions = {
-    modules: [Autoplay, Pagination, Navigation],
-    loop: false,
-    slidesPerView: 1,
-    observer: true,
-    observeParents: true,
-    spaceBetween: 12,
-    autoplay: {
-        delay: 2000,
-        disableOnInteraction: false
-    },
-    breakpoints: {
-        768: {
-            slidesPerView: 2
-        },
-        1024: {
-            slidesPerView: 3
-        }
-    }
-}
 const CounterUp = dynamic(() => import('@/components/elements/CounterUp'), {
     ssr: false,
 })
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+
+const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Home() {
 
     const [isBidModal, setBidModal] = useState(false)
     const handleBidModal = () => setBidModal(!isBidModal)
+    const [totalNumberOfProjects, setTotalNumberOfProjects] = useState(0);
+    const [totalNumberOfUsers, setTotalNumberOfUsers] = useState(0);
+    const [totalNumberOfTransactions, setTotalNumberOfTransactions] = useState(0);
 
     const [isActive, setIsActive] = useState({
         status: false,
         key: "",
-    })
+    });
+
+    useEffect(() => {
+        axios.get(`${BACKEND_API}//users/total`)
+            .then(res => {
+                setTotalNumberOfUsers(res.data);
+            })
+
+        axios.get(`${BACKEND_API}//projects/total`)
+            .then(res => {
+                setTotalNumberOfProjects(res.data);
+            })
+
+        axios.get(`${BACKEND_API}//transactions/total`)
+            .then(res => {
+                setTotalNumberOfTransactions(res.data);
+            })
+    }, []);
 
     const handleToggle = (key) => {
         if (isActive.key === key) {
@@ -52,6 +54,7 @@ export default function Home() {
             })
         }
     }
+
     return (
         <>
 
@@ -84,7 +87,7 @@ export default function Home() {
                                     <div className="counter__body-1">
                                         <div className="counter-1">
                                             <div className="number-counter">
-                                                <span className="number" data-speed={3000} data-to={99} data-inviewport="yes"><CounterUp count={99} time={1} /></span>K+
+                                                <span className="number" data-speed={3000} data-to={99} data-inviewport="yes"><CounterUp count={totalNumberOfProjects} time={1} /></span>
                                             </div>
                                             <h6 className="title">Projects</h6>
                                         </div>
@@ -98,7 +101,7 @@ export default function Home() {
                                         </div>
                                         <div className="counter-1">
                                             <div className="number-counter">
-                                                <span className="number" data-speed={3000} data-to={72} data-inviewport="yes"><CounterUp count={72} time={1} /></span>K+
+                                                <span className="number" data-speed={3000} data-to={72} data-inviewport="yes"><CounterUp count={totalNumberOfUsers} time={1} /></span>
                                             </div>
                                             <h6 className="title">Users</h6>
                                         </div>
@@ -112,7 +115,7 @@ export default function Home() {
                                         </div>
                                         <div className="counter-1">
                                             <div className="number-counter">
-                                                <span className="number" data-speed={3000} data-to={128} data-inviewport="yes"><CounterUp count={128} time={1} /></span>K+
+                                                <span className="number" data-speed={3000} data-to={128} data-inviewport="yes"><CounterUp count={totalNumberOfTransactions} time={1} /></span>
                                             </div>
                                             <h6 className="title">Transactions</h6>
                                         </div>
@@ -178,8 +181,8 @@ export default function Home() {
                                 <div data-wow-delay="0.1s" className="wow fadeInUp col-md-3 col-6">
                                     <div className="our-team-item pb-38 text-center">
                                         <img src="/assets/images/avatar/team-02.png" alt="" />
-                                        <div className="name"><Link href="#">Jared</Link></div>
-                                        <div className="info">CTO, Director</div>
+                                        <div className="name"><Link href="#">Meta</Link></div>
+                                        <div className="info">Funder</div>
                                         <div className="widget-social">
                                             <ul className="flex justify-center">
                                                 <li><Link href="#" className="icon-facebook" /></li>
@@ -192,7 +195,7 @@ export default function Home() {
                                     <div className="our-team-item pb-38 text-center">
                                         <img src="/assets/images/avatar/team-02.png" alt="" />
                                         <div className="name"><Link href="#">Terry</Link></div>
-                                        <div className="info">Full Stack Developer</div>
+                                        <div className="info">CTO</div>
                                         <div className="widget-social">
                                             <ul className="flex justify-center">
                                                 <li><Link href="#" className="icon-facebook" /></li>

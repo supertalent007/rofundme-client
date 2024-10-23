@@ -14,7 +14,7 @@ export default function Campaign({ project, HtmlRenderer }) {
                                         <div className="sub-campaign justify-center flex flex-col align-center" key={`camp-${index}`}>
                                             {
                                                 thumb?.type === 'image' ?
-                                                    <img src={`http://localhost:8000/${thumb?.filePath}`} alt="media" width='80%' /> :
+                                                    <img src={`${MEDIA_URL}/${thumb?.filePath}`} alt="media" width='80%' /> :
                                                     <video controls width="500">
                                                         <source src={`${MEDIA_URL}/${thumb?.filePath}`} type="video/mp4" />
                                                     </video>

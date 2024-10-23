@@ -29,8 +29,8 @@ export default function FlatTitle1() {
                                 <h1 data-wow-delay="0s" className="wow fadeInUp">Your creative ideas into reality</h1>
                                 <p className="wow fadeInUp" data-wow-delay="0.1s">Welcome to RoFundMe, the ultimate crowdfunding platform for Roblox games! Discover and support talented game developers as they bring their unique Roblox creations to life. Join our community and help fund the next big hit!</p>
                                 <div data-wow-delay="0.2s" className=" wow fadeInUp flat-button flex justify-center">
-                                    <Link href="/project-create" className="tf-button style-1 h50 w190 mr-16">Get Started <i className="icon-arrow-up-right2" /></Link>
-                                    <Link href="#" className="tf-button style-1 h50 w190 active">All collections <i className="icon-arrow-up-right2" /></Link>
+                                    <Link href="/project-create" className="tf-button style-1 h50 w190 mr-16">Get Started </Link>
+                                    <Link href="/projects" className="tf-button style-1 h50 w190 active">All collections </Link>
                                 </div>
                             </div>
                             <div className="icon-background">
