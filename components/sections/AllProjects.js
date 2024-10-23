@@ -213,58 +213,58 @@ export default function AllProjects({ activeIndex }) {
                         <div className="widget-content-tab" id="recent-project">
                             <div className="widget-content-inner row">
                                 {
-                                    projects.length &&
-                                    projects.map((project, index) => (
-                                        <div className="wrap-box-card col-6" key={`project-${index}`}>
-                                            <div className="col-item">
-                                                <div className="tf-card-box style-1">
-                                                    <div className="card-media">
-                                                        <Link href="#">
-                                                            <img src={project?.image} alt="" />
-                                                        </Link>
-                                                        <span className="wishlist-button icon-heart" />
-                                                        <div className="button-place-bid">
-                                                            <a href={`/project/${project?._id}`} className="tf-button"><span>Funding</span></a>
-                                                        </div>
-                                                    </div>
-                                                    <h5 className="name" style={{ height: '50px', overflow: 'hidden' }}><Link href="#">
-                                                        {project?.title}
-                                                    </Link></h5>
-                                                    <div className="author flex items-center mt-3">
-                                                        <div className="avatar">
-                                                            <img src={project?.userId?.avatar} alt="Image" />
-                                                        </div>
-                                                        <div className="info">
-                                                            <span>Created by:</span>
-                                                            <h6><Link href="author-2.html">
-                                                                {project?.userId?.name}
-                                                            </Link> </h6>
-                                                        </div>
-                                                        <div className="info mr-0 ml-auto">
-                                                            <span>Created at:</span>
-                                                            <h6>
-                                                                {getTimeDifference(project?.createdAt)}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <div className="divider" />
-                                                    <div className="meta-info flex items-center justify-between">
-                                                        <div className="view-col w-full">
-                                                            <span className="primary-color">${project?.fundedAmount?.toLocaleString()}</span>
-                                                            <div className="w-full h-10 bg-white border-radius-10">
-                                                                <div
-                                                                    className="bg-secondary h-10 border-radius-10"
-                                                                    style={{ width: `${Math.floor((project?.fundedAmount / project?.goal) * 100)}%` }}
-                                                                />
+                                    projects.length ?
+                                        projects.map((project, index) => (
+                                            <div className="wrap-box-card col-6" key={`project-${index}`}>
+                                                <div className="col-item">
+                                                    <div className="tf-card-box style-1">
+                                                        <div className="card-media">
+                                                            <Link href="#">
+                                                                <img src={project?.image} alt="" />
+                                                            </Link>
+                                                            <span className="wishlist-button icon-heart" />
+                                                            <div className="button-place-bid">
+                                                                <a href={`/project/${project?._id}`} className="tf-button"><span>Funding</span></a>
                                                             </div>
-                                                            <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()}`}</span>
                                                         </div>
+                                                        <h5 className="name" style={{ height: '50px', overflow: 'hidden' }}><Link href="#">
+                                                            {project?.title}
+                                                        </Link></h5>
+                                                        <div className="author flex items-center mt-3">
+                                                            <div className="avatar">
+                                                                <img src={project?.userId?.avatar} alt="Image" />
+                                                            </div>
+                                                            <div className="info">
+                                                                <span>Created by:</span>
+                                                                <h6><Link href="author-2.html">
+                                                                    {project?.userId?.name}
+                                                                </Link> </h6>
+                                                            </div>
+                                                            <div className="info mr-0 ml-auto">
+                                                                <span>Created at:</span>
+                                                                <h6>
+                                                                    {getTimeDifference(project?.createdAt)}
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                        <div className="divider" />
+                                                        <div className="meta-info flex items-center justify-between">
+                                                            <div className="view-col w-full">
+                                                                <span className="primary-color">${project?.fundedAmount?.toLocaleString()}</span>
+                                                                <div className="w-full h-10 bg-white border-radius-10">
+                                                                    <div
+                                                                        className="bg-secondary h-10 border-radius-10"
+                                                                        style={{ width: `${Math.floor((project?.fundedAmount / project?.goal) * 100)}%` }}
+                                                                    />
+                                                                </div>
+                                                                <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()}`}</span>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))
+                                        )) : 'No projects yet'
                                 }
                             </div>
                             {
@@ -339,29 +339,31 @@ export default function AllProjects({ activeIndex }) {
                                 }
                             </div> : ''
                     }
-                    <div className="widget widget-creators">
-                        <div className="flex items-center justify-between">
-                            <h5 className="title-widget">Top Creators</h5>
-                            <Link className="see-all" href="#">See all</Link>
-                        </div>
-                        {
-                            topCreators.length &&
-                            topCreators.map((creator, index) => {
-                                return (
-                                    <div className="widget-creators-item flex items-center mb-20">
-                                        <div className="order">{index + 1}. </div>
-                                        <div className="author flex items-center flex-grow">
-                                            <img src={creator?.avatar} alt="" />
-                                            <div className="info">
-                                                <h6><Link href={`/user/${creator?._id}`}>{creator?.name}</Link></h6>
+                    {
+                        topCreators.length ?
+                            <div className="widget widget-creators">
+                                <div className="flex items-center justify-between">
+                                    <h5 className="title-widget">Top Creators</h5>
+                                    <Link className="see-all" href="#">See all</Link>
+                                </div>
+                                {
+                                    topCreators.map((creator, index) => {
+                                        return (
+                                            <div className="widget-creators-item flex items-center mb-20">
+                                                <div className="order">{index + 1}. </div>
+                                                <div className="author flex items-center flex-grow">
+                                                    <img src={creator?.avatar} alt="" />
+                                                    <div className="info">
+                                                        <h6><Link href={`/user/${creator?._id}`}>{creator?.name}</Link></h6>
+                                                    </div>
+                                                </div>
+                                                <button className="follow">Follow</button>
                                             </div>
-                                        </div>
-                                        <button className="follow">Follow</button>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                                        )
+                                    })
+                                }
+                            </div> : 'There is no creator yet'
+                    }
                     {
                         latestTransactions?.length ?
                             <div className="widget widget-history">

@@ -149,7 +149,7 @@ export default function SignUp() {
                                             <button className="tf-button style-1 h50 w-100" type="submit">Sign up<i className="icon-arrow-up-right2" /></button>
                                         </div>
                                     </form>
-                                    <div className="other">or continue</div>
+                                    {/* <div className="other">or continue</div>
                                     <div className="login-other">
                                         <Link href="#" className="login-other-item">
                                             <img src="/assets/images/google.png" alt="" />
@@ -163,7 +163,7 @@ export default function SignUp() {
                                             <img src="/assets/images/apple.png" alt="" />
                                             <span>Login with Apple</span>
                                         </Link>
-                                    </div>
+                                    </div> */}
                                     <div className="no-account">Already have an account?  <Link href="/login" className="tf-color">Log in</Link></div>
                                 </div>
                             </div>
