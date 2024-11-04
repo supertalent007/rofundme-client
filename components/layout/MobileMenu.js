@@ -22,7 +22,7 @@ export default function MobileMenu() {
         <>
             <nav id="mobile-main-nav" className="mobile-main-nav">
                 <ul id="menu-mobile-menu" className="menu">
-                    <li className="menu-item menu-item-has-children-mobile current-menu-item" onClick={() => handleToggle(1)}>
+                    {/* <li className="menu-item menu-item-has-children-mobile current-menu-item" onClick={() => handleToggle(1)}>
                         <a className="item-menu-mobile">Home</a>
                         <ul className="sub-menu-mobile" style={{ display: `${isActive.key == 1 ? "block" : "none"}` }}>
                             <li className="menu-item current-item"><Link href="/">Home 1</Link></li>
@@ -36,11 +36,25 @@ export default function MobileMenu() {
                             <li className="menu-item"><Link href="/slider-scroll">Slider Scroll</Link></li>
                             <li className="menu-item"><Link href="/slider-animation">Slider Animation</Link></li>
                         </ul>
+                    </li> */}
+                    <li className="menu-item">
+                        <Link className="item-menu-mobile" href="/">Home</Link>
                     </li>
                     <li className="menu-item">
                         <Link className="item-menu-mobile" href="/about-us">About us</Link>
                     </li>
+                    <li className="menu-item">
+                        <Link className="item-menu-mobile" href="/projects">Features</Link>
+                    </li>
                     <li className="menu-item menu-item-has-children-mobile" onClick={() => handleToggle(2)}>
+                        <a className="item-menu-mobile">Help</a>
+                        <ul className="sub-menu-mobile" style={{ display: `${isActive.key == 2 ? "block" : "none"}` }}>
+                            <li className="menu-item"><Link href="/terms-condition">Terms &amp; Condition</Link></li>
+                            <li className="menu-item"><Link href="/privacy-policy">Privacy Policy</Link></li>
+                            <li className="menu-item"><Link href="/faq">FAQs</Link></li>
+                        </ul>
+                    </li>
+                    {/* <li className="menu-item menu-item-has-children-mobile" onClick={() => handleToggle(2)}>
                         <a className="item-menu-mobile">Explore</a>
                         <ul className="sub-menu-mobile" style={{ display: `${isActive.key == 2 ? "block" : "none"}` }}>
                             <li className="menu-item"><Link href="/explore-1">Explore Style 1</Link></li>
@@ -53,8 +67,8 @@ export default function MobileMenu() {
                             <li className="menu-item"><Link href="/ranking">Ranking</Link></li>
                             <li className="menu-item"><Link href="/upcoming">Upcoming Projects</Link></li>
                         </ul>
-                    </li>
-                    <li className="menu-item menu-item-has-children-mobile" onClick={() => handleToggle(3)}>
+                    </li> */}
+                    {/* <li className="menu-item menu-item-has-children-mobile" onClick={() => handleToggle(3)}>
                         <a className="item-menu-mobile">Pages</a>
                         <ul className="sub-menu-mobile" style={{ display: `${isActive.key == 3 ? "block" : "none"}` }}>
                             <li className="menu-item"><Link href="/market">Market</Link></li>
@@ -77,8 +91,8 @@ export default function MobileMenu() {
                             <li className="menu-item"><Link href="/login">Login</Link></li>
                             <li className="menu-item"><Link href="/sign-up">Sign up</Link></li>
                         </ul>
-                    </li>
-                    <li className="menu-item menu-item-has-children-mobile" onClick={() => handleToggle(4)}>
+                    </li> */}
+                    {/* <li className="menu-item menu-item-has-children-mobile" onClick={() => handleToggle(4)}>
                         <a className="item-menu-mobile">Blog</a>
                         <ul className="sub-menu-mobile" style={{ display: `${isActive.key == 4 ? "block" : "none"}` }}>
                             <li className="menu-item"><Link href="/blog-grid">Blog Grid</Link></li>
@@ -87,7 +101,7 @@ export default function MobileMenu() {
                             <li className="menu-item"><Link href="/blog-list-1">Blog List 1</Link></li>
                             <li className="menu-item"><Link href="/blog-detail">Blog Details</Link></li>
                         </ul>
-                    </li>
+                    </li> */}
                     <li className="menu-item">
                         <Link className="item-menu-mobile" href="/contact-us">Contact</Link>
                     </li>

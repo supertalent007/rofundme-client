@@ -3,6 +3,8 @@ import Link from "next/link";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
+import { ToastContainer } from 'react-toastify';
+import randomWords from '../random_words.json';
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
 
@@ -56,10 +58,37 @@ export default function Profile() {
         }
     }
 
+    const getRandomWord = () => {
+        const randomIndex = Math.floor(Math.random() * randomWords.length);
+        return randomWords[randomIndex];
+    };
+
+    const verifyRobloxUser = async () => {
+        const displayedWord = getRandomWord();
+        const userEnteredWord = prompt(`Please type the following word to proceed: "${displayedWord}"`);
+
+        if (userEnteredWord === displayedWord) {
+            axios
+                .post(`${BACKEND_API}/users/verify-roblox-id`, {
+                    userId: jwtDecode(localStorage.getItem('token')).id,
+                    robloxId: user?.robloxId,
+                    robloxUserName: user?.robloxUserName
+                })
+                .then(res => {
+                    toast.success('Verified your roblox id');
+                })
+                .catch(err => {
+                    toast.error(err.response.data.message);
+                })
+        } else {
+            toast.error('Verification failed. Please try again.');
+        }
+    }
+
     return (
         <>
             <div className="flex row wrapper-content">
-                <div className='col-4 widget-edit mb-30 profile flex flex-col align-center justify-center'>
+                <div className='col-md-4 widget-edit mb-30 profile flex flex-col align-center justify-center'>
                     <input
                         type="file"
                         accept="image/*"
@@ -79,6 +108,28 @@ export default function Profile() {
                         onClick={() => document.getElementById('avatar-file-input').click()}
                     />
 
+                    <input
+                        type="text"
+                        id="roblox-id"
+                        name="roblox-id"
+                        placeholder='Roblox ID'
+                        className='mt-3'
+                        value={user?.robloxId}
+                        onChange={e => setUser({ ...user, robloxId: e.target.value })}
+                    />
+
+                    <input
+                        type="text"
+                        id="roblox-username"
+                        name="roblox-username"
+                        placeholder='User Name'
+                        className='mt-3'
+                        value={user?.robloxUserName}
+                        onChange={e => setUser({ ...user, robloxUserName: e.target.value })}
+                    />
+
+                    <button className='tf-button mt-3' onClick={verifyRobloxUser}>Verify</button>
+
                     <div className="flex flex-col mt-4 widget-social">
                         <ul className="flex">
                             <li><Link href="#" className="icon-facebook" /></li>
@@ -89,7 +140,7 @@ export default function Profile() {
                         </ul>
                     </div>
                 </div>
-                <div className='col-7 widget-edit mb-30 profile mr-0 ml-auto'>
+                <div className='col-md-7 widget-edit mb-30 profile mr-0 ml-auto'>
                     <div className="flex gap20">
                         <input
                             type="text"
@@ -214,6 +265,7 @@ export default function Profile() {
 
                 <button className="w-full" onClick={handleSubmit}>Save</button>
             </div>
+            <ToastContainer />
         </>
     )
 }

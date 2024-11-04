@@ -83,7 +83,7 @@ export default function History({ activeIndex }) {
                     </div>
                     <div className="heading-section">
                         <h2 className="tf-title style-1 pb-30">Transaction History</h2>
-                        <div data-wow-delay="0s" className="wow fadeInUp col-12">
+                        <div data-wow-delay="0s" className="wow fadeInUp col-12 overflow-auto">
                             <div className="product-item item-activity mb-0">
                                 <h6><i className="icon-two-arrow rotateZ90" />Transactions</h6>
                                 <i className="icon-keyboard_arrow_down" />
@@ -115,64 +115,66 @@ export default function History({ activeIndex }) {
                 </div>
                 <div className="side-bar">
                     {
-                        recentProjects.length &&
-                        <div className="widget widget-recently">
-                            <h5 className="title-widget">Recently added</h5>
-                            <div className="card-small-main">
-                                <img src={recentProjects[0].image} alt="" />
-                                <div className="card-bottom">
-                                    <h5><Link href="#">
-                                        {recentProjects[0].title}
-                                    </Link></h5>
-                                    <span className="date">{getTimeDifference(recentProjects[0].createdAt)}</span>
+                        recentProjects.length ?
+                            <div className="widget widget-recently">
+                                <h5 className="title-widget">Recently added</h5>
+                                <div className="card-small-main">
+                                    <img src={recentProjects[0].image} alt="" />
+                                    <div className="card-bottom">
+                                        <h5><Link href="#">
+                                            {recentProjects[0].title}
+                                        </Link></h5>
+                                        <span className="date">{getTimeDifference(recentProjects[0].createdAt)}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            {
-                                recentProjects.map((project, index) => {
-                                    if (index && index <= 5) {
+                                {
+                                    recentProjects.map((project, index) => {
+                                        if (index && index <= 5) {
+                                            return (
+                                                <div className="card-small" key={`recent-project-${index}`}>
+                                                    <div className="author">
+                                                        <img src={project?.image} alt="" width='100px' />
+                                                        <div className="info">
+                                                            <h6><Link href={`/project/${project?._id}`}>{project?.title ? project.title.substring(0, 10) + (project.title.length > 10 ? '…' : '') : ''}</Link></h6>
+                                                            <p><Link href="#">{project?.userId?.name}</Link></p>
+                                                        </div>
+                                                    </div>
+                                                    <span className="date">
+                                                        {getTimeDifference(project.createdAt)}
+                                                    </span>
+                                                </div>
+                                            )
+                                        }
+
+                                    })
+                                }
+                            </div> : ''
+                    }
+                    {
+                        topCreators.length ?
+                            <div className="widget widget-creators">
+                                <div className="flex items-center justify-between">
+                                    <h5 className="title-widget">Top Creators</h5>
+                                    <Link className="see-all" href="#">See all</Link>
+                                </div>
+                                {
+                                    topCreators.map((creator, index) => {
                                         return (
-                                            <div className="card-small" key={`recent-project-${index}`}>
-                                                <div className="author">
-                                                    <img src={project?.image} alt="" width='100px' />
+                                            <div className="widget-creators-item flex items-center mb-20">
+                                                <div className="order">{index + 1}. </div>
+                                                <div className="author flex items-center flex-grow">
+                                                    <img src={creator?.avatar} alt="" />
                                                     <div className="info">
-                                                        <h6><Link href={`/project/${project?._id}`}>{project?.title ? project.title.substring(0, 10) + (project.title.length > 10 ? '…' : '') : ''}</Link></h6>
-                                                        <p><Link href="#">{project?.userId?.name}</Link></p>
+                                                        <h6><Link href={`/user/${creator?._id}`}>{creator?.name}</Link></h6>
                                                     </div>
                                                 </div>
-                                                <span className="date">
-                                                    {getTimeDifference(project.createdAt)}
-                                                </span>
+                                                <button className="follow">Follow</button>
                                             </div>
                                         )
-                                    }
-
-                                })
-                            }
-                        </div>
+                                    })
+                                }
+                            </div> : ''
                     }
-                    <div className="widget widget-creators">
-                        <div className="flex items-center justify-between">
-                            <h5 className="title-widget">Top Creators</h5>
-                            <Link className="see-all" href="#">See all</Link>
-                        </div>
-                        {
-                            topCreators.length &&
-                            topCreators.map((creator, index) => {
-                                return (
-                                    <div className="widget-creators-item flex items-center mb-20">
-                                        <div className="order">{index + 1}. </div>
-                                        <div className="author flex items-center flex-grow">
-                                            <img src={creator?.avatar} alt="" />
-                                            <div className="info">
-                                                <h6><Link href="#">{creator?.name}</Link></h6>
-                                            </div>
-                                        </div>
-                                        <button className="follow">Follow</button>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
                     {
                         latestTransactions?.length ?
                             <div className="widget widget-history">

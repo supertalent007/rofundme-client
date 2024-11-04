@@ -10,6 +10,8 @@ import 'react-tabs/style/react-tabs.css';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { jwtDecode } from 'jwt-decode';
 import { formatDistanceToNowStrict, addDays } from 'date-fns';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
 const MEDIA_API = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -19,6 +21,7 @@ export default function Custom404() {
     const [project, setProject] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [numberOfBackers, setNumberOfBackers] = useState(0);
+    const [user, setUser] = useState(null);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 
@@ -26,6 +29,12 @@ export default function Custom404() {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 767);
         };
+
+        axios
+            .get(`${BACKEND_API}/users/single/${jwtDecode(localStorage.getItem('token')).id}`)
+            .then(res => {
+                setUser(res.data);
+            })
 
         window.addEventListener('resize', handleResize);
 
@@ -99,7 +108,7 @@ export default function Custom404() {
                                                 style={{ width: `${Math.floor((project?.fundedAmount / project?.goal) * 100)}%` }}
                                             />
                                         </div>
-                                        <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()}`}</span>
+                                        <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()} Raised`}</span>
                                     </div>
                                 </div>
                                 <div className="widget-social mt-5 mb-5">
@@ -121,11 +130,11 @@ export default function Custom404() {
 
                         </div>
 
-
                         {isModalOpen ?
                             <RewardModal
                                 closeModal={closeModal}
                                 project={project}
+                                user={user}
                             /> : ''
                         }
 
@@ -142,7 +151,7 @@ export default function Custom404() {
                                 <Campaign project={project} HtmlRenderer={HtmlRenderer} />
                             </TabPanel>
                             <TabPanel>
-                                <Rewards project={project} isMobile={isMobile} />
+                                <Rewards project={project} isMobile={isMobile} user={user} />
                             </TabPanel>
                         </Tabs>
                     </div>
@@ -163,13 +172,18 @@ function HtmlRenderer({ htmlContent }) {
     );
 }
 
-function RewardModal({ closeModal, project }) {
+function RewardModal({ closeModal, project, user }) {
     const stripe = useStripe();
     const elements = useElements();
     const [amount, setAmount] = useState(10);
 
     const handleSubmit = async (reward) => {
         if (!stripe || !elements) {
+            return;
+        }
+
+        if (!user.isVerified) {
+            toast.warning('Must have Roblox User ID to purchase perk');
             return;
         }
 
@@ -194,6 +208,11 @@ function RewardModal({ closeModal, project }) {
     };
 
     const handlePayment = async () => {
+        if (!user?.isVerified) {
+            toast.warning('Must have Roblox User ID to purchase perk');
+            return;
+        }
+
         if (!stripe || !elements) {
             return;
         }

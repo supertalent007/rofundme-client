@@ -1,6 +1,7 @@
 import Layout from "@/components/layout/Layout"
 
 import Action1 from "@/components/sections/Action1"
+import Community from "@/components/sections/Community"
 import CreateSell1 from "@/components/sections/CreateSell1"
 import DiscoverProject from "@/components/sections/DiscoverProject"
 import FeaturedItem1 from "@/components/sections/FeaturedItem1"
@@ -30,13 +31,14 @@ export default function Home() {
         <>
             <Layout headerStyle={1} footerStyle={1} pageCls="home-1">
                 <FlatTitle1 />
-                <FeaturedItem1 />
+                {/* <FeaturedItem1 /> */}
                 <TopCreators topUsers={topUsers} />
                 {/* <DiscoverProject /> */}
                 {/* <TopCollector1 /> */}
                 <TopProjects />
-                {/* <CreateSell1 />
-                <Action1 /> */}
+                {/* <CreateSell1 /> */}
+                {/* <Action1 /> */}
+                <Community />
             </Layout>
         </>
     )

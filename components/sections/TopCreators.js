@@ -71,10 +71,10 @@ export default function TopCreators({ topUsers }) {
                                                                 </div>
                                                             </div>
                                                             <div className="author-infor ">
-                                                                <h5><Link href="/author-2">
+                                                                <h5><Link href={`/user/${user?._id}`}>
                                                                     {user?.name}
                                                                 </Link></h5>
-                                                                <h6 className="price gem style-1"><i className="icon-gem" />7,080.95</h6>
+                                                                <h6 className="price gem style-1"><i className="icon-gem" />{user?.earning.toLocaleString()}</h6>
                                                             </div>
                                                         </div>
                                                     </SwiperSlide>

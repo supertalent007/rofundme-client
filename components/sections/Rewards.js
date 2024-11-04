@@ -1,9 +1,11 @@
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect, useState } from 'react';
 
-export default function Rewards({ project, isMobile }) {
+export default function Rewards({ project, isMobile, user }) {
     return (
         <div className="tf-section action">
             <div className="themesflat-container">
@@ -11,7 +13,7 @@ export default function Rewards({ project, isMobile }) {
                     <div className="col-md-12">
                         {project?.rewards?.length &&
                             project.rewards.map((reward, index) => (
-                                <RewardCard reward={reward} project={project} key={`reward-${index}`} isMobile={isMobile} />
+                                <RewardCard reward={reward} project={project} key={`reward-${index}`} isMobile={isMobile} user={user} />
                             ))}
                     </div>
                 </div>
@@ -20,18 +22,19 @@ export default function Rewards({ project, isMobile }) {
     );
 }
 
-function RewardCard({ reward, project, isMobile }) {
+function RewardCard({ reward, project, isMobile, user }) {
     const MEDIA_URL = process.env.NEXT_PUBLIC_SERVER_URL;
     const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
     const stripe = useStripe();
     const elements = useElements();
+    const [backerCnt, setBackerCnt] = useState(0);
 
-    // useEffect(() => {
-    //     axios.get(`${BACKEND_API}/get_number_of_backers?id=${reward?._id}`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //         })
-    // }, []);
+    useEffect(() => {
+        axios.get(`${BACKEND_API}/projects/get_number_of_backers_for_reward/${reward?._id}`)
+            .then(res => {
+                setBackerCnt(res.data.numberOfBackers);
+            })
+    }, []);
 
     const formatEstimatedDeliveryDate = (createdAt, durationInDays) => {
         const createdDate = new Date(createdAt);
@@ -42,6 +45,11 @@ function RewardCard({ reward, project, isMobile }) {
 
     const handleSubmit = async () => {
         if (!stripe || !elements) {
+            return;
+        }
+
+        if (!user?.isVerified) {
+            toast.warning('Must have Roblox User ID to purchase perk');
             return;
         }
 
@@ -69,7 +77,7 @@ function RewardCard({ reward, project, isMobile }) {
         <div className="flex row">
             <div className={isMobile ? 'col-12' : 'col-5'}>
                 <div className="flex-col gap30 mt-4 mb-4 reward-card">
-                    <img src={`${MEDIA_URL}/${reward?.filePath}`} alt="media" />
+                    <img src={`${MEDIA_URL}/${reward?.filePath}`} alt="media" style={{ width: '100%' }} />
                     <div className="p20">
                         <div className="flex justify-between">
                             <h3>{reward?.title}</h3>
@@ -78,7 +86,7 @@ function RewardCard({ reward, project, isMobile }) {
                         <div className="flex justify-between mt-5">
                             <div className="flex flex-col align-center">
                                 <span className="mb-2">Backers:</span>
-                                <span>15</span>
+                                <span>{backerCnt}</span>
                             </div>
                             <div className="flex flex-col align-center">
                                 <span className="mb-2">Estimated Delivery:</span>

@@ -110,6 +110,7 @@ export default function Create({ user }) {
             setFilePreviewUrl(null);
             setMediaItems([]);
             setRewards([]);
+            window.location.replace('/projects');
         } catch (error) {
             console.error('Error uploading project:', error);
             toast.error('Failed to create project.');
@@ -136,11 +137,11 @@ export default function Create({ user }) {
                     </ul>
                     <div className="widget-content-tab">
                         <div className={activeIndex === 1 ? "widget-content-inner description active" : "widget-content-inner description"} style={{ display: `${activeIndex == 1 ? "" : "none"}` }}>
-                            <div className="wrap-content w-full">
+                            <div className="wrap-content force-w-full">
                                 <form id="commentform" className="comment-form" noValidate="novalidate">
                                     <fieldset className="upload">
                                         <button
-                                            className="tf-button h50 active w-full"
+                                            className="tf-button h50 active force-w-full"
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 document.getElementById(`file-input-main`).click();
@@ -254,7 +255,7 @@ export default function Create({ user }) {
 
                                     <div className="btn-submit flex gap30 justify-center">
                                         <button
-                                            className="tf-button style-1 h50 w320 disabled"
+                                            className="tf-button style-1 h50 w320 active"
                                             onClick={e => {
                                                 e.preventDefault();
                                                 setActiveIndex(1);
@@ -277,10 +278,10 @@ export default function Create({ user }) {
                         </div>
 
                         <div className={activeIndex === 2 ? "widget-content-inner assets active" : "widget-content-inner assets"} style={{ display: `${activeIndex == 2 ? "" : "none"}` }}>
-                            <div className="wrap-content w-full">
+                            <div className="wrap-content force-w-full">
                                 <MediaUploader mediaItems={mediaItems} setMediaItems={setMediaItems} />
 
-                                <div className="btn-submit flex gap30 justify-center">
+                                <div className="btn-submit flex gap30 justify-center force-w-full">
                                     <button
                                         className="tf-button style-1 h50 w320 active"
                                         onClick={e => {
@@ -290,7 +291,6 @@ export default function Create({ user }) {
                                     >
                                         Prev
                                     </button>
-
                                     <button
                                         className="tf-button style-1 h50 w320 active"
                                         onClick={e => {
@@ -308,9 +308,9 @@ export default function Create({ user }) {
                             className={activeIndex === 3 ? "widget-content-inner assets active" : "widget-content-inner assets"}
                             style={{ display: `${activeIndex == 3 ? "" : "none"}` }}
                         >
-                            <div className="wrap-content w-full">
+                            <div className="wrap-content force-w-full">
                                 <button
-                                    className="tf-button mb-5"
+                                    className="tf-button mb-5 active force-w-full"
                                     onClick={openModal}
                                 >
                                     New Reward
@@ -345,7 +345,7 @@ export default function Create({ user }) {
                                             )
                                         }) : ''
                                 }
-                                <div className="btn-submit flex gap30 justify-center mt-5">
+                                <div className="btn-submit flex gap30 justify-center mt-10">
                                     <button
                                         className="tf-button style-1 h50 w320 active"
                                         onClick={e => {
@@ -414,11 +414,11 @@ function MediaUploader({ mediaItems, setMediaItems }) {
     return (
         <div className="media-uploader">
             {mediaItems.map((item, index) => (
-                <div key={index} className="media-item wrap-upload w-full">
+                <div key={index} className="media-item wrap-upload force-w-full">
                     <form id="commentform" className="comment-form" noValidate="novalidate">
                         <fieldset className="upload">
                             <button
-                                className="tf-button h50 active w-full"
+                                className="tf-button h50 active force-w-full"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     document.getElementById(`file-input-${index}`).click();
@@ -463,7 +463,7 @@ function MediaUploader({ mediaItems, setMediaItems }) {
                     </form>
                 </div>
             ))}
-            <button className="tf-button mb-5" onClick={addMediaItem}>New Media</button>
+            <button className="tf-button mb-5 force-w-full active" onClick={addMediaItem}>New Media</button>
         </div>
     );
 }
@@ -491,7 +491,7 @@ function RewardModal({ closeModal, rewards, setRewards }) {
                 <form>
                     <fieldset>
                         <button
-                            className="tf-button h50 active w-full"
+                            className="tf-button h50 active force-w-full"
                             onClick={(e) => {
                                 e.preventDefault();
                                 document.getElementById(`file-input-reward`).click();

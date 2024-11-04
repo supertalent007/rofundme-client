@@ -48,7 +48,7 @@ export default function TopProjects() {
                                 <div className="col-md-12">
                                     <div className="heading-section pb-20">
                                         <h2 className="tf-title ">Top projects</h2>
-                                        <Link href="/explore-3" >Discover more <i className="icon-arrow-right2" /></Link>
+                                        <Link href="/projects" >Discover more <i className="icon-arrow-right2" /></Link>
                                     </div>
                                 </div>
                                 <div className="col-md-12">
@@ -97,7 +97,6 @@ export default function TopProjects() {
                                                                 </div>
                                                             </div>
                                                         </SwiperSlide>
-
                                                     )
                                                 })
                                             }

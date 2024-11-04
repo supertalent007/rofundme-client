@@ -3583,6 +3583,7 @@ form label i.icon-star.active {
     -ms-transition: all 0.5s linear;
     -o-transition: all 0.5s linear;
     transition: all 0.5s linear;
+    min-height: 100vh;
 }
 
 #page.market-page #market {
@@ -3637,7 +3638,7 @@ form label i.icon-star.active {
     position: absolute;
     right: 0;
     top: 110%;
-    padding: 35px 20px 12px 20px;
+    padding: 12px 20px 12px 20px;
     overflow: hidden;
     border-radius: 10px;
     background: #232323;
@@ -3651,7 +3652,8 @@ form label i.icon-star.active {
     -webkit-transform: translateY(-1rem);
     transform: translateY(-1rem);
     font-size: 16px;
-    width: 300px;
+    width: 150px;
+    align-items: center;
 }
 
 .admin_active .popup-user .avatar_popup2.visible,
@@ -6389,7 +6391,7 @@ fieldset.password>i::before {
 }
 
 .bg-secondary {
-    background-color: #ff0000;
+    background-color: #0cc300;
 }
 
 .basic-text {
@@ -6500,4 +6502,49 @@ fieldset.password>i::before {
     width: 50%;
     text-align: center;
     cursor: pointer;
+}
+
+.height-auto {
+    height: auto !important;
+}
+
+.font-size-30 {
+    font-size: 30px;
+}
+
+.bg-blue {
+    background: linear-gradient(180deg, #7f89ff, #5864f5 99.58%) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 5px 10px rgba(54, 70, 76, .05), 0px 0px 20px 4px rgba(67, 117, 254, .5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.bg-light-blue {
+    background: linear-gradient(180deg, #1eb9ff, #00adfb 99.58%) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 3px 6px rgba(54, 70, 76, .15), 0px 0px 10px 3px rgba(0, 173, 251, .3);
+    ;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.bg-red {
+    background: linear-gradient(180deg, #ff4141, red 99.58%) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 3px 6px rgba(54, 70, 76, .15), 0px 0px 10px 3px rgba(255, 0, 0, .3);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.p-5 {
+    padding: 40px;
+}
+
+.mt-10 {
+    margin-top: 100px;
+}
+
+.overflow-auto {
+    overflow: auto;
 }

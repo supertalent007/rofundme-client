@@ -106,7 +106,7 @@ export default function AllProjects({ activeIndex }) {
         'Racing',
         'RolePlay',
         'RPG',
-        'Shooter/FPS',
+        'FPS',
         'Simulator',
         'Survival'
     ];
@@ -194,13 +194,13 @@ export default function AllProjects({ activeIndex }) {
                                         </Link>
                                         <Link href="#" className="dropdown-item" onClick={e => setSortBy('increase')}>
                                             <div className="sort-filter" href="#">
-                                                <span>Price: Low to High</span>
+                                                <span>Increasing Price</span>
                                                 <span className="icon-tick"><span className="path2" /></span>
                                             </div>
                                         </Link>
                                         <Link href="#" className="dropdown-item" onClick={e => setSortBy('decrease')}>
                                             <div className="sort-filter" href="#">
-                                                <span>Price: High to Low</span>
+                                                <span>Decreasing Price</span>
                                                 <span className="icon-tick"><span className="path2" /></span>
                                             </div>
                                         </Link>
@@ -215,56 +215,54 @@ export default function AllProjects({ activeIndex }) {
                                 {
                                     projects.length ?
                                         projects.map((project, index) => (
-                                            <div className="wrap-box-card col-6" key={`project-${index}`}>
-                                                <div className="col-item">
-                                                    <div className="tf-card-box style-1">
-                                                        <div className="card-media">
-                                                            <Link href="#">
-                                                                <img src={project?.image} alt="" />
-                                                            </Link>
-                                                            <span className="wishlist-button icon-heart" />
-                                                            <div className="button-place-bid">
-                                                                <a href={`/project/${project?._id}`} className="tf-button"><span>Funding</span></a>
-                                                            </div>
+                                            <div className="wrap-box-card col-md-6" key={`project-${index}`}>
+                                                <div className="tf-card-box style-1">
+                                                    <div className="card-media">
+                                                        <Link href="#">
+                                                            <img src={project?.image} alt="" />
+                                                        </Link>
+                                                        <span className="wishlist-button icon-heart" />
+                                                        <div className="button-place-bid">
+                                                            <a href={`/project/${project?._id}`} className="tf-button"><span>Funding</span></a>
                                                         </div>
-                                                        <h5 className="name" style={{ height: '50px', overflow: 'hidden' }}><Link href="#">
-                                                            {project?.title}
-                                                        </Link></h5>
-                                                        <div className="author flex items-center mt-3">
-                                                            <div className="avatar">
-                                                                <img src={project?.userId?.avatar} alt="Image" />
-                                                            </div>
-                                                            <div className="info">
-                                                                <span>Created by:</span>
-                                                                <h6><Link href="author-2.html">
-                                                                    {project?.userId?.name}
-                                                                </Link> </h6>
-                                                            </div>
-                                                            <div className="info mr-0 ml-auto">
-                                                                <span>Created at:</span>
-                                                                <h6>
-                                                                    {getTimeDifference(project?.createdAt)}
-                                                                </h6>
-                                                            </div>
+                                                    </div>
+                                                    <h5 className="name" style={{ height: '50px', overflow: 'hidden' }}><Link href="#">
+                                                        {project?.title}
+                                                    </Link></h5>
+                                                    <div className="author flex items-center mt-3">
+                                                        <div className="avatar">
+                                                            <img src={project?.userId?.avatar} alt="Image" />
                                                         </div>
-                                                        <div className="divider" />
-                                                        <div className="meta-info flex items-center justify-between">
-                                                            <div className="view-col w-full">
-                                                                <span className="primary-color">${project?.fundedAmount?.toLocaleString()}</span>
-                                                                <div className="w-full h-10 bg-white border-radius-10">
-                                                                    <div
-                                                                        className="bg-secondary h-10 border-radius-10"
-                                                                        style={{ width: `${Math.floor((project?.fundedAmount / project?.goal) * 100)}%` }}
-                                                                    />
-                                                                </div>
-                                                                <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()}`}</span>
+                                                        <div className="info">
+                                                            <span>Created by:</span>
+                                                            <h6><Link href="author-2.html">
+                                                                {project?.userId?.name}
+                                                            </Link> </h6>
+                                                        </div>
+                                                        <div className="info mr-0 ml-auto">
+                                                            <span>Created at:</span>
+                                                            <h6>
+                                                                {getTimeDifference(project?.createdAt)}
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div className="divider" />
+                                                    <div className="meta-info flex items-center justify-between">
+                                                        <div className="view-col w-full">
+                                                            <span className="primary-color">${project?.fundedAmount?.toLocaleString()}</span>
+                                                            <div className="w-full h-10 bg-white border-radius-10">
+                                                                <div
+                                                                    className="bg-secondary h-10 border-radius-10"
+                                                                    style={{ width: `${Math.min(100, Math.floor((project?.fundedAmount / project?.goal) * 100))}%` }}
+                                                                />
                                                             </div>
+                                                            <span className="font-medium">{`${Math.floor((project?.fundedAmount / project?.goal) * 100)}% of $${project?.goal?.toLocaleString()} Raised`}</span>
+                                                        </div>
 
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        )) : 'No projects yet'
+                                        )) : <h3>No projects yet</h3>
                                 }
                             </div>
                             {
@@ -362,7 +360,7 @@ export default function AllProjects({ activeIndex }) {
                                         )
                                     })
                                 }
-                            </div> : 'There is no creator yet'
+                            </div> : ''
                     }
                     {
                         latestTransactions?.length ?
